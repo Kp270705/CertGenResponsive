@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    /* body {
+
+    background-repeat: no-repeat;
+    background-position: left;
+    
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #66ccff 0%, #0066ff 100%);
+    margin: 0;
+    padding: 0;
+
+    background-color: #f4f4f4;
+} */
+
+    .hero {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .loginImage {
+
+        float: left;
+        display: inline;
+
+        margin-top: 2vh;
+        margin-left: 0%;
+
+        height: 2vh;
+
+    }
+
+    .LogginContainer {
+        float: left;
+        display: inline;
+
+        width: 100%;
+        max-width: 32%;
+
+        margin: 0 auto;
+        margin-top: 10vh;
+        margin-left: 8vw;
+        height: 60vh;
+
+        padding: 20px;
+
+        background-color: #fff;
+        border-radius: 5px;
+        /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .input-container {
+        margin-bottom: 15px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    button:active {
+        background-color: #004280;
+    }
+
+    p {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="hero">
+        <div class="loginImage">
+            <!-- <img src="./static/Images/SignupEssentials/sleep.png" alt="image" height="625vh" width="700vw"> -->
+            <img src="./static/Images/AuthEssentials/login.png" alt="image" height="600vh" width="700vw">
+
+        </div>
+
+        <div class="LogginContainer">
+            <form action="/home" method="POST">
+                <h2> <b>Login</b> </h2>
+                <div class="input-container">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+
+                <div class="input-container">
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="input-container">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit">Login</button>
+                <p>Don't have an account? <a href="/Register">Register here</a>.</p>
+            </form>
+        </div>
+    </div>
+
+    <div class="btnClass" style="margin-top: 5%; margin-left: 50%; position: absolute;">
+        <button action="home.html" class="landBtn btn btn-success"> <a class="aLinks" href="/home" style="color: white;"> Start here </a> </button>
+    </div>
+
+</body>
+
+</html>
+
+
+{% endblock %}

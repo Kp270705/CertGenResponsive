@@ -1,0 +1,15 @@
+            # if certificate_choice == "Choice1":
+            #     TemplatePath = f"{CertificateEssestials}/certBg.jpg"
+            #     ccPath = f"{CertificateEssestials}/ccWhite.png"
+            #     hodPath = f"{CertificateEssestials}/hodWhite.png"
+            #     logo2Path = f"{CertificateEssestials}/TechGeeksLogo.png"
+            #     linepath = f"{CertificateEssestials}/line1.png"
+            #     finalTemplatePath = templatedesign(TemplatePath, logo1Path, logo2Path, linepath, ccPath, hodPath)
+                
+            # if certificate_choice == "Choice3":
+            #     TemplatePath = f"./static/Images/CertificateEssentials/Artboard.jpg"
+            #     ccPath = f"./static/Images/CertificateEssentials/cc.png"
+            #     hodPath = f"./static/Images/CertificateEssentials/hod.png"
+            #     logo2Path = f"./static/Images/CertificateEssentials/TechGeeksLogoColor.png"
+            #     linepath = f"./static/Images/CertificateEssentials/line1b.png"
+            #     finalTemplatePath = templatedesign(TemplatePath, logo1Path, logo2Path, linepath, ccPath, hodPath)

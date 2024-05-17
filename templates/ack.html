@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acknowledge</title>
+
+    <style>
+
+        .ackImage {
+            display: block;
+            margin-top: 30px;
+            margin-left: 28vw;
+        }
+
+        .acknowledge {
+            display: flex;
+            display: block;
+            justify-content: space-between;
+            margin-top: 35px;
+        }
+
+        .action1 {
+            float: left;
+            display: inline;
+            margin-left: 37vw;
+        }
+
+        .action2 {
+            float: right;
+            display: inline;
+            margin-right: 37vw;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="hero">
+        <div class="ackImage">
+            <!-- <img src="./static/Images/acknowledgement/ack1.gif" alt="acknowledgement image" height="450vh" width="640vw"> -->
+            <img src="./static/Images/acknowledgement/ack2.png" alt="acknowledgement image" height="450vh" width="640vw">
+            <!-- <video src="./static/Images/acknowledgement/ack.mp4" controls autoplay loop height="450vh" width="650vw"></video> -->
+        </div>
+
+        <h1 align="center" style="display: inline; margin-left: 33% ; color: green; background-color: yellow;">Your certificates are ready!</h1>
+
+        <div class="acknowledge">
+            <div class="action1">
+                <a href="./static/GeneratedCertificate.zip" type="button" class="btn btn-primary home" download>
+                    <span class="button-icon">⬇</span>
+                    Download Certificates
+                </a>
+            </div>
+
+            <div class="action2" >
+                <a href="csv" type="button" class="btn btn-primary home">
+                    Go Home
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
+
+
+{% endblock %}

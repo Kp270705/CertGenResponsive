@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+
+<body>
+
+    <div class="tableee" align="center">
+        <h3>Your Given csv data. </h3>
+        <table>
+
+            <tr>
+                <th>s. no.</th>
+                <th> Name </th>
+                <th> Id </th>
+                <th> Course </th>
+                <th> Semester </th>
+                <!-- <th> Maxpulse</th> -->
+            </tr>
+
+
+            {% for wd in data %}
+            <tr>
+                <th>{{ loop.index }}</th>
+                <td> {{wd.name}} </td>
+                <td> {{wd.sId}} </td>
+                <td> {{wd.course}} </td>
+                <td> {{wd.semester}} </td>
+                <!-- <td> {{wd.maxpulse}} </td> -->
+            </tr>
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+    <div align="center"><a href="/csv">go to home</a></div>
+
+</body>
+
+{% endblock %}

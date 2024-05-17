@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+
+  /* body{
+    background-color: black;
+  } */
+  
+</style>
+
+<main>
+
+  <body>
+
+    <div class="formUploading">
+      <form action="/csv" method="post" enctype="multipart/form-data">
+        
+        <h1 class="h1" align="center"> Welcome to automated certificate generator </h1>
+        
+        <div class="infoSection">
+          <div class="image">
+            <img src="./static/Images/Home/office_workers2.gif" alt="working" height="100%" width="100%">
+          </div>
+
+        <!-- --------------------------------------------------------------------------------------->
+          <div class="homeInfoSection">
+            <label for="eventName" class="label-class">Enter the event name: </label>
+            <input type="text" name="eventName" id="eventName" class="input-class" required>
+
+            <label for="OrgName" class="label-class">Enter the organization name: </label>
+            <input type="text" name="OrgName" id="OrgName" class="input-class" required>
+
+            <label for="logo" class="label-class">Giver your organization's logo(in .png extension)</label>
+            <input type="file" name="logo" id="logo" class="input-class" >
+
+            <label for="logo2" class="label-class">Giver your organization's event logo(in .png extension)</label>
+            <input type="file" name="logo2" id="logo2" class="input-class" >
+
+            <label for="formfile" class="label-class">Enter your csv file </label>
+            <input type="file" name="file" id="formfile" class="input-class" multiple="multiple" required>
+
+            <label for="hod" class="label-class">Enter your hod sign </label>
+            <input type="file" name="hod" id="hod" class="input-class">
+
+            <label for="cc" class="label-class">Enter your c.c sign </label>
+            <input type="file" name="cc" id="cc" class="input-class" >
+
+          </div>
+
+        </div>
+
+        
+        <div class="imageContainer">
+          <h1 class="h1" align="center"> Select the certificate you want: </h1>
+          <ul class="imageList">
+
+            <li class="listImage">
+              <input type="radio" id="choice1" name="certificate_choice" value="Choice1">
+              <label for="choice1">
+                <img src="static/Images/CertificateEssentials/demoCertImg1.png" alt="certificate image" height="290px"
+                  width="380px">
+              </label>
+            </li>
+
+            <li class="listImage">
+              <input type="radio" id="choice2" name="certificate_choice" value="Choice2">
+              <label for="choice2">
+                <img src="static/Images/CertificateEssentials/demoCertImg2.png" alt="certificate image" height="290px"
+                  width="380px">
+              </label>
+            </li>
+
+            <li class="listImage">
+              <input type="radio" id="choice3" name="certificate_choice" value="Choice3">
+              <label for="choice3">
+                <img src="static/Images/CertificateEssentials/demoCertImg3.png" alt="certificate image" height="290px"
+                  width="380px">
+              </label>
+            </li>
+
+            <li class="listImage">
+              <input type="radio" id="choice4" name="certificate_choice" value="Choice4">
+              <label for="choice4">
+                <img src="static/Images/CertificateEssentials/demoCertImg4.png" alt="certificate image" height="290px"
+                  width="380px">
+              </label>
+            </li>
+
+            <li class="listImage">
+              <input type="radio" id="choice5" name="certificate_choice" value="Choice5">
+              <label for="choice5">
+                <img src="static/Images/CertificateEssentials/demoCertImg2.png" alt="certificate image" height="290px"
+                  width="380px">
+              </label>
+            </li>
+
+            <li class="listImage">
+              <input type="radio" id="choice6" name="certificate_choice" value="Choice6">
+              <label for="choice6">
+                <img src="static/Images/CertificateEssentials/demoCertImg1.png" alt="certificate image" height="290px"
+                  width="380px">
+              </label>
+            </li>
+
+          </ul>
+        </div>
+
+        <div align="center">
+          <button type="submit" class="btn btn-success mt-3" name="action" value="Preview" style="margin-bottom: 20px;">Preview</button>
+          <button type="submit" class="btn btn-success mt-3" name="action" value="Generate" style="margin-bottom: 20px;">Generate</button>
+
+        </div>
+
+      </form>
+    </div>
+
+  </body>
+
+</main>
+
+
+{% endblock %}

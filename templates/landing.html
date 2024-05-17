@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    /* landing page style starts:  */
+
+    p {
+        font-family: "Archivo Sans", sans-serif;
+        font-family: "Convergence", sans-serif;
+
+        font-weight: 400;
+        font-style: normal;
+
+        margin: 30px 100px 30px 100px;
+        text-align: justify;
+    }
+
+
+    .appHeader {
+        /* height: 50%; */
+        /* height: 120px; */
+        margin: 30px 0px 0px 0px;
+        background-color: lightskyblue;
+        box-shadow: 5px 5px 5px 5px rgb(213, 217, 218);
+    }
+
+    .badger {
+        font-family: "Baloo 2", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 666;
+        font-style: normal;
+        background-color: rgb(255, 255, 153);
+        display: inline;
+        height: 55px;
+        margin: 0px 0px 0px 30px;
+    }
+
+    .h1 {
+        margin: 35px 0px 10px 30px;
+        text-align: center;
+
+    }
+
+    .h4 {
+        font-family: "Archivo Sans", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+        margin: 0px 0px 0px 490px;
+    }
+
+    /* .............................................. */
+
+    /* it's hero's css: */
+    .hero {
+        height: 75%;
+        margin: 30px 0px 0px 30px;
+        display: flex;
+        /* Flexbox layout */
+        justify-content: space-between;
+    }
+
+    .image {
+        /* height: 75%; */
+        margin: 50px 20px 0px 30px;
+        float: left;
+        display: inline;
+    }
+
+    .img {
+        box-shadow: 10px 10px 10px 10px rgb(213, 217, 218);
+        /* display: flex; */
+    }
+
+    .about {
+        /* height: 75%; */
+        float: left;
+        display: inline;
+        margin: 0px 0px 0px 35px;
+    }
+
+    .hh2 {
+        font-family: "Archivo Sans", sans-serif;
+        font-family: "Convergence", sans-serif;
+
+        font-weight: 400;
+        font-style: normal;
+        margin: 30px 0px 0px 190px;
+
+    }
+
+    .btnClass {
+        height: 10%;
+        margin: 50px 0px 0px 0px;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        /* Center horizontally */
+    }
+
+    .landBtn {
+        background-color: lightblue;
+        border: 2px solid darkcyan;
+    }
+
+    .aLinks {
+        color: black;
+        text-decoration: none;
+
+    }
+</style>
+
+
+<!-- creating a appHeader:  -->
+<div class="appHeader">
+
+    <h2 class="h2"> Discover all new </h2>
+    <div class="badger">
+        An automatic certificate generator
+    </div>
+    <h4 class="h4 h2"> Create interactive certificate for organizations, colleges, NGO's from here</h4>
+
+</div>
+
+<!-- hero of our landing page: -->
+<div class="hero">
+
+    <div class="image ">
+        <img class="img"
+            src="https://d2vyhi5ouo1we3.cloudfront.net/force_jpg/aHR0cHM6Ly9pbWFnZXMuYmFubmVyYmVhci5jb20vcmVxdWVzdHMvaW1hZ2VzLzAwOC85MjQvNTc5L29yaWdpbmFsL2VhYzQyY2FiZjM5YzIxY2Y4NThlNWY4NDRlZmM0YTA1MjJmOGUxNzkucG5nPzE2MzI4MDgzMDI=/image.jpg"
+            alt="certificate image" width="300px" height="250px">
+
+    </div>
+
+    <div class="about">
+        <h2 class="hh2"> Welcome to certificate generator </h2>
+
+        <p class="para"> Welcome to our cutting-edge Certificate Generator! Are you tired of the hassle and
+            time-consuming process of manually designing certificates? Look no further! Our innovative platform offers
+            an automated solution to streamline your certificate creation process. With just a few clicks, you can
+            generate stunning, professional-quality certificates tailored to your needs. Whether you're recognizing
+            achievements in education, business, or any other field, our user-friendly interface makes it easy to
+            customize designs, add logos, and personalize messages. Say goodbye to tedious formatting tasks and hello to
+            efficient, hassle-free certificate creation. Join countless satisfied users who have revolutionized their
+            certificate-making experience with our intuitive Certificate Generator today! </p>
+
+    </div>
+</div>
+
+<div class="btnClass">
+    <button action="home.html" class="landBtn"> <a class="aLinks" href="/home"> Start here </a> </button>
+</div>
+
+
+{% endblock %}
