@@ -58,7 +58,7 @@ class PDF(FPDF):
         pass     
         
 # certificate design1:-        
-    def certificate1(self, name, sId, course, sem, eventname, orgname, certificateChoice, opertype, text_color, PDF_bg):
+    def certificate1(self, name, sId, course, sem, eventname, orgname, certType, certificateChoice, opertype, text_color, organizer1_designation, organizer2_designation, PDF_bg):
         print(f"in certificate1 method...(of gen_pdf)")
         date= dt.date.today()
         print(f"date added")
@@ -114,7 +114,7 @@ class PDF(FPDF):
         print("Heading 1st created...")
         self.ln(4)
         
-        sec2 = f"OF PARTICIPATION"
+        sec2 = f"{certType.upper()}"
         spacedSection2 = add_spacing(sec2, 1)
         self.section2 = f"{spacedSection2}"
         self.set_font(f"Montserrat-Medium", size=28)
@@ -175,16 +175,16 @@ class PDF(FPDF):
         print("Heading 9th created...")
         self.ln(21)  # Add some space after title
 
-        auth1 = f"C.C."
-        auth2 = f"H.O.D."
+        auth1 = f"{organizer1_designation}"
+        auth2 = f"{organizer2_designation}"
         spacedSection10a = add_spacing(auth1.upper(), 1)
         spacedSection10b = add_spacing(auth2.upper(), 1)
         self.section10 = f"{spacedSection10a}                   {spacedSection10b}"
-        self.set_font("Montserrat-SemiBold", size=18, style="B")
-        self.set_left_margin(95)
-        self.cell(80, 3, txt=f"{spacedSection10a}", align='L')
+        self.set_font("Montserrat-SemiBold", size=10, style="B")
+        self.set_left_margin(65)
+        self.cell(90, 3, txt=f"{spacedSection10a}", align='C')
         self.set_left_margin(50)
-        self.cell(50, 3, txt=f"{spacedSection10b}", align='L')
+        self.cell(50, 3, txt=f"{spacedSection10b}", align='C')
         print("Heading 10th created...")
 
         print(f"Certificate generated successfully...")
@@ -193,7 +193,7 @@ class PDF(FPDF):
 
 # -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    def certificate2(self, name, sId, course, sem, eventname, orgname, certificateChoice, opertype, text_color, PDF_bg):
+    def certificate2(self, name, sId, course, sem, eventname, orgname, certType, certificateChoice, opertype, text_color, organizer1_designation, organizer2_designation, PDF_bg):
         print(f"in certificate2 method...(of gen_pdf)")
         date= dt.date.today()
         
@@ -226,7 +226,7 @@ class PDF(FPDF):
         self.add_font("Montserrat-Medium", "", f"{FONTS['Montserrat']["MontserratMedium"]}", uni=1 )
 
         # Set font
-        self.ln(30)
+        self.ln(40)
         # self.section1 = f"C E R T I F I C A T E\n"
         sec1 = f"CERTIFICATE"
         # spacedSection1 = add_spacing(sec1, 1)
@@ -236,72 +236,81 @@ class PDF(FPDF):
         self.multi_cell(270, 8, txt=self.section1, align='C')
         self.ln(4)
         
-        sec2 = f"OF PARTICIPATION"
+        sec2 = f"{certType.upper()}"
         spacedSection2 = add_spacing(sec2, 1)
         self.section2 = f"{spacedSection2}"
         self.set_font(f"Montserrat-Medium", size=28)
         self.multi_cell(277, 8, txt=self.section2, align='C')
-        self.ln(3)
+        self.ln(5)
         
         sec3 = f"IS  PROUDLY  PRESENTED  TO"
         # spacedSection3 = add_spacing(sec3, 2)
         self.section3 = f"{sec3}"
         self.set_font("Montserrat-Regular", size=15)
         self.multi_cell(277, 20, txt=self.section3, align='C')
-        self.ln(5)
+        self.ln(7)
         
         spacedSection4 = add_spacing(name.upper(), 1)
         self.section4 = f"{spacedSection4}"
-        self.set_font("Montserrat-Bold", size=30, style="UB")
+        self.set_font("Montserrat-Bold", size=25, style="B")
         self.multi_cell(277, 5, txt=self.section4, align='C')
         self.ln(6)
 
         spacedSection5a = add_spacing(course.upper(), 2)
         spacedSection5b = add_spacing(sem.upper(), 2)
         self.section5 = f"{spacedSection5a}                     {spacedSection5b}"
-        self.set_font("Montserrat-Black", size=18, style="")
+        self.set_font("Montserrat-Black", size=15, style="")
         self.multi_cell(277, 10, txt=self.section5, align='C')
         self.ln(10)
         
         # self.section6 = f"F O R   P A R T I C I P A T I N G  I N"
-        sec6 = f"FOR  PARTICIPATING  IN"
+        if certType == "of participation":
+            sec6 = f"For  participating  in"
+        if certType == "Certificate of completion":
+            sec6 = f"For  completing  the"
+        if certType == "of appreciation":
+            sec6 = f"For  completing  the"
+        if certType == "of completion":
+            sec6 = f"For  completing  the"
         # spacedSection6 = add_spacing(sec6, 2)
         self.section6 = f"{sec6}"
         # self.set_font("Poppins-Bold", size=16, style="B")
-        self.set_font("Montserrat-Regular", size=18)
+        self.set_font("Montserrat-Medium", size=15)
         self.multi_cell(277, 8, txt=self.section6, align='C')
-        self.ln(10)
+        self.ln(1)
 
-        spacedSection7 = add_spacing(eventname.upper(), 1)
+        spacedSection7 = add_spacing(eventname.upper(), 0)
         self.section7 = f"{spacedSection7}"
-        self.set_font("Poppins-ExtraBold", size=18, style="B")
-        self.multi_cell(277, 7, txt=self.section7, align='C')
-        self.ln(2)
+        self.set_font("Poppins-SemiBold", size=18, style="B")
+        self.multi_cell(277, 5, txt=self.section7, align='C')
+        self.ln(1)
 
         sec8 = f"ON"
         spacedSection8 = add_spacing(sec8, 2)
         self.section8 = f"{spacedSection8}"
         self.set_font("Poppins-Regular", size=13)
-        self.multi_cell(277, 7, txt=self.section8, align='C')
+        self.multi_cell(277, 5, txt=self.section8, align='C')
+        self.ln(1)
 
         self.section9 = f"{date}"
-        self.set_font("Poppins-ExtraBold", size=18, style="B")
-        self.multi_cell(277, 10, txt=self.section9, align='C')
-        self.ln(21)
-        auth1 = f"C.C."
-        auth2 = f"H.O.D."
-        spacedSection10a = add_spacing(auth1.upper(), 1)
-        spacedSection10b = add_spacing(auth2.upper(), 1)
+        print(f"\n\n\tDate: {date}")
+        self.set_font("Poppins-SemiBold", size=18, style="B")
+        self.multi_cell(277, 6, txt=self.section9, align='C')
+        self.ln(24)
+
+        auth1 = f"{organizer1_designation}"
+        auth2 = f"{organizer2_designation}"
+        spacedSection10a = add_spacing(auth1.upper(), 0)
+        spacedSection10b = add_spacing(auth2.upper(), 0)
         self.section10 = f"{spacedSection10a}                   {spacedSection10b}"
-        self.set_font("Montserrat-SemiBold", size=18, style="B")
-        self.set_left_margin(95)
-        self.cell(80, 3, txt=f"{spacedSection10a}", align='L')
+        self.set_font("Montserrat-Black", size=10, style="")
         self.set_left_margin(50)
-        self.cell(50, 3, txt=f"{spacedSection10b}", align='L')
+        self.cell(100, 3, txt=f"{spacedSection10a}", align='C')
+        self.set_left_margin(160)
+        self.cell(50, 3, txt=f"{spacedSection10b}", align='C')
 
         print(f"Certificate generated successfully...")
         print("Certificate2() ends...")        
-
 
 
 # --------------------------------------------------------------------------     
@@ -397,7 +406,7 @@ class PDF(FPDF):
 # --------------------------------------------------------------------------     
 
 
-def getData(name, sId, Duration, pulse, maxPulse, calories, course, sem, i, eventname, orgName, certificateChoice, opertype, PDF_TemplatePath):
+def getData(name, sId, Duration, pulse, maxPulse, calories, course, sem, i, eventname, orgName, certType, certificateChoice, opertype, organizer1_designation, organizer2_designation, PDF_TemplatePath):
     print(f"i={i}")
     
     # Create PDFFolder if it doesn't exist
@@ -414,16 +423,21 @@ def getData(name, sId, Duration, pulse, maxPulse, calories, course, sem, i, even
     pdf.set_auto_page_break(auto=True, margin=15)
     
 
-    if certificateChoice == "Choice1":
+    if certificateChoice == "Choice1" or certificateChoice == "Choice2" or certificateChoice == "Choice3" :
+        if certificateChoice == "Choice1":
+            fontcolor = 220
+        if certificateChoice == "Choice2" or certificateChoice == "Choice3":
+            fontcolor = 0
+
+        pdf.certificate1(name, sId, course, sem, eventname, orgName, certType, certificateChoice, opertype, fontcolor, organizer1_designation, organizer2_designation, PDF_TemplatePath)
+        print(f"success")
+
+
+    if certificateChoice == "Choice4":
         fontcolor = 220
-        pdf.certificate1(name, sId, course, sem, eventname, orgName, certificateChoice, opertype, fontcolor, PDF_TemplatePath)
+        pdf.certificate2(name, sId, course, sem, eventname, orgName, certType, certificateChoice, opertype, fontcolor, organizer1_designation, organizer2_designation, PDF_TemplatePath)
         print(f"course: {course}")
 
-
-    if certificateChoice == "Choice2" or certificateChoice == "Choice3" :
-        fontcolor = 0
-        pdf.certificate1(name, sId, course, sem, eventname, orgName, certificateChoice, opertype, fontcolor, PDF_TemplatePath)
-        print(f"success")
 
     pdf.output(f"./static/PDFFolder/{opertype}Certificate{i}.pdf")
     

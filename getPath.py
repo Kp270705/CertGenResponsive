@@ -23,6 +23,14 @@ certificate_choice = {
     "linepath" : f"{CertificateEssestials}/line1b.png",
     },
 
+    "Choice4":{
+    "TemplatePath" :f"{CertificateEssestials}/Artboard2.png",
+    "logo2Path ": f"{CertificateEssestials}/TechGeeksLogo.png",
+    "ccPath" : f"{CertificateEssestials}/cc.png",
+    "hodPath" : f"{CertificateEssestials}/hod.png",
+    "linepath" : f"{CertificateEssestials}/line1g.png",
+    },
+
 }
 
 def get_Choice_data(choice):

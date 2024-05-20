@@ -56,55 +56,63 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route("/ack")
-def ProcessData(eventname, orgname, certificate_choice, oprchoice, csvPath, logo1Path, logo2Path, hodPath, ccPath):  # which get data from operated csv files:
+def ProcessData(eventname, orgname, certType, certificate_choice, oprchoice, csvPath, logo1Path, logo2Path, organizer1_designation, organizer1Path, organizer2_designation, organizer2Path):  # which get data from operated csv files:
     
     # global csvData
     global csvData
     csvData = processFile(f"{csvPath}")
-    # CertificateEssestials = f"./static/Images/CertificateEssentials"
+
     from getPath import get_Choice_data
 
-    from redesignTemplate import templatedesign
+    from redesignTemplate import templatedesign, templatedesign2
     match oprchoice:
 
         case "Generate":
             if certificate_choice == "Choice1":
                 pathkey = get_Choice_data(certificate_choice)
                 print(f"{pathkey}")
-                finalTemplatePath = templatedesign(pathkey["TemplatePath"], logo1Path, logo2Path, pathkey["linepath"], ccPath, hodPath)
+                finalTemplatePath = templatedesign(pathkey["TemplatePath"], logo1Path, logo2Path, pathkey["linepath"], organizer1Path, organizer2Path)
 
             if certificate_choice == "Choice2":
                 pathkey = get_Choice_data(certificate_choice)
-                finalTemplatePath = templatedesign(pathkey["TemplatePath"], logo1Path, logo2Path, pathkey["linepath"], ccPath, hodPath)
+                finalTemplatePath = templatedesign(pathkey["TemplatePath"], logo1Path, logo2Path, pathkey["linepath"], organizer1Path, organizer2Path)
 
             if certificate_choice == "Choice3":
                 pathkey = get_Choice_data(certificate_choice)
-                finalTemplatePath = templatedesign(pathkey["TemplatePath"], logo1Path, logo2Path, pathkey["linepath"], ccPath, hodPath)
+                finalTemplatePath = templatedesign(pathkey["TemplatePath"], logo1Path, logo2Path, pathkey["linepath"], organizer1Path, organizer2Path)
+
+            if certificate_choice == "Choice4":
+                pathkey = get_Choice_data(certificate_choice)
+                finalTemplatePath = templatedesign2(pathkey["TemplatePath"], logo1Path, logo2Path, pathkey["linepath"], organizer1Path, organizer2Path)
 
             i=0
             for CSV in csvData:
                     i+=1
-                    getData(CSV.name, CSV.sId, CSV.duration, CSV.pulse, CSV.maxpulse, CSV.calories, CSV.course, CSV.semester, i, eventname, orgname, certificate_choice, oprchoice, finalTemplatePath)
+                    getData(CSV.name, CSV.sId, CSV.duration, CSV.pulse, CSV.maxpulse, CSV.calories, CSV.course, CSV.semester, i, eventname, orgname, certType, certificate_choice, oprchoice, organizer1_designation, organizer2_designation, finalTemplatePath)
 
 
         case "Preview":
 
             if certificate_choice == "Choice1":
                 pathkey = get_Choice_data(certificate_choice)
-                finalTemplatePath = templatedesign(pathkey["TemplatePath"], logo1Path, logo2Path, pathkey["linepath"], ccPath, hodPath)
+                finalTemplatePath = templatedesign(pathkey["TemplatePath"], logo1Path, logo2Path, pathkey["linepath"], organizer1Path, organizer2Path)
                 
             if certificate_choice == "Choice2":
                 pathkey = get_Choice_data(certificate_choice)
-                finalTemplatePath = templatedesign(pathkey["TemplatePath"], logo1Path, logo2Path, pathkey["linepath"], ccPath, hodPath)
+                finalTemplatePath = templatedesign(pathkey["TemplatePath"], logo1Path, logo2Path, pathkey["linepath"], organizer1Path, organizer2Path)
 
             if certificate_choice == "Choice3":
                 pathkey = get_Choice_data(certificate_choice)
-                finalTemplatePath = templatedesign(pathkey["TemplatePath"], logo1Path, logo2Path, pathkey["linepath"], ccPath, hodPath)
+                finalTemplatePath = templatedesign(pathkey["TemplatePath"], logo1Path, logo2Path, pathkey["linepath"], organizer1Path, organizer2Path)
+
+            if certificate_choice == "Choice4":
+                pathkey = get_Choice_data(certificate_choice)
+                finalTemplatePath = templatedesign2(pathkey["TemplatePath"], logo1Path, logo2Path, pathkey["linepath"], organizer1Path, organizer2Path)
 
             i=0
             for CSV in csvData:
                     i+=1
-                    getData(CSV.name, CSV.sId, CSV.duration, CSV.pulse, CSV.maxpulse, CSV.calories, CSV.course, CSV.semester, i, eventname, orgname, certificate_choice, oprchoice, finalTemplatePath)
+                    getData(CSV.name, CSV.sId, CSV.duration, CSV.pulse, CSV.maxpulse, CSV.calories, CSV.course, CSV.semester, i, eventname, orgname, certType, certificate_choice, oprchoice, organizer1_designation, organizer2_designation, finalTemplatePath)
                     if i == 1:
                         break
 
@@ -122,23 +130,18 @@ def upload_file():
         
         oprchoice = request.form.get("action")
         
-        certificate_choice_id = f" "
-        certificate_choice = request.form.get('certificate_choice') # it didn't use in our code, yet
-
-        if request.form.get('certificate_choice') == 'Choice1':
-            certificate_choice_id = request.form.get('certificate_choice')
-
-        elif request.form.get('certificate_choice') == 'Choice2':
-            certificate_choice_id = request.form.get('certificate_choice')
-
-        elif request.form.get('certificate_choice') == 'Choice3':
-            certificate_choice_id = request.form.get('certificate_choice')
-            
-        eventName = request.form.get("eventName")
-        
-        orgName = request.form.get("OrgName")
-        
+        print("\n\nIn uploadfiles....")
+        certificate_choice_id = request.form.get('certificate_choice')
         print(f"Certificate choice id name: {certificate_choice_id}")
+        eventName = request.form.get("eventName")
+        orgName = request.form.get("OrgName")
+        certType = request.form.get("certificateType")
+        print(f"certificate type: {certType} ")
+        organizer1 = request.form.get("Organizer1Desig")
+        organizer2 = request.form.get("Organizer2Desig")
+        print(f"orgnzr1 desig:{organizer1}")
+        print(f"orgnzr2 desig:{organizer2}")
+
         
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -148,12 +151,10 @@ def upload_file():
         print(f"{request.files}")
         CsvFile = request.files['file']
         Logo1File = request.files["logo"] # to get name of logo file
+        Logo2File = request.files["logo2"] 
 
-        Logo2File = request.files["logo2"] # to get name of logo file
-
-        HodFile = request.files["hod"] # to get name of logo file
-
-        CcFile = request.files["cc"] # to get name of logo file
+        organizer1File = request.files["organizer1"] 
+        organizer2File = request.files["organizer2"] 
 
         # If the user does not select a file, the browser submits an
         # empty file without a filename.
@@ -174,19 +175,19 @@ def upload_file():
             logo2_filename = secure_filename(Logo2File.filename)
             Logo2File.save(os.path.join(app.config['UPLOAD_FOLDER'], logo2_filename))
 
-        if (HodFile and allowed_file(HodFile.filename)) or (HodFile.filename) :
-            hod_filename = secure_filename(HodFile.filename)
-            HodFile.save(os.path.join(app.config['UPLOAD_FOLDER'], hod_filename))
+        if (organizer1File and allowed_file(organizer1File.filename)) or (organizer1File.filename) :
+            organizer1_filename = secure_filename(organizer1File.filename)
+            organizer1File.save(os.path.join(app.config['UPLOAD_FOLDER'], organizer1_filename))
 
-        if (CcFile and allowed_file(CcFile.filename)) or (CcFile.filename) :
-            cc_filename = secure_filename(CcFile.filename)
-            CcFile.save(os.path.join(app.config['UPLOAD_FOLDER'], cc_filename))
+        if (organizer2File and allowed_file(organizer2File.filename)) or (organizer2File.filename) :
+            organizer2_filename = secure_filename(organizer2File.filename)
+            organizer2File.save(os.path.join(app.config['UPLOAD_FOLDER'], organizer2_filename))
             
         if oprchoice == "Generate":
-            ProcessData(eventName, orgName, certificate_choice_id, oprchoice, f"{userFiles}/{csv_filename}", f"{userFiles}/{logo1_filename}", f"{userFiles}/{logo2_filename}", f"{userFiles}/{hod_filename}", f"{userFiles}/{cc_filename}")
+            ProcessData(eventName, orgName, certType, certificate_choice_id, oprchoice, f"{userFiles}/{csv_filename}", f"{userFiles}/{logo1_filename}", f"{userFiles}/{logo2_filename}", organizer1, f"{userFiles}/{organizer1_filename}", organizer2, f"{userFiles}/{organizer2_filename}")
             return render_template("ack.html")
         if oprchoice == "Preview":
-            ProcessData(eventName, orgName, certificate_choice_id, oprchoice, f"{userFiles}/{csv_filename}", f"{userFiles}/{logo1_filename}", f"{userFiles}/{logo2_filename}", f"{userFiles}/{hod_filename}", f"{userFiles}/{cc_filename}")
+            ProcessData(eventName, orgName, certType, certificate_choice_id, oprchoice, f"{userFiles}/{csv_filename}", f"{userFiles}/{logo1_filename}", f"{userFiles}/{logo2_filename}", organizer1, f"{userFiles}/{organizer1_filename}", organizer2, f"{userFiles}/{organizer2_filename}")
             return render_template("preview.html")
         print("After ProcessData()...")
 

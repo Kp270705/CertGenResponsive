@@ -6,6 +6,7 @@
   /* body{
     background-color: black;
   } */
+
   
 </style>
 
@@ -31,20 +32,37 @@
             <label for="OrgName" class="label-class">Enter the organization name: </label>
             <input type="text" name="OrgName" id="OrgName" class="input-class" required>
 
+            <label for="certificateType" class="label-class">Select certificate type: </label>
+            <select name="certificateType" id="certificateType" class="input-class" required>
+                <option value="" disabled selected>select type</option>
+                <option value="of participation">Certificate of participation</option>
+                <option value="of completion">Certificate of completion</option>
+                <option value="of appreciation">Certificate of appreciation</option>
+                <option value="of recognition">Certificate of recognition</option>
+            </select>
+            
             <label for="logo" class="label-class">Giver your organization's logo(in .png extension)</label>
             <input type="file" name="logo" id="logo" class="input-class" >
-
+            
             <label for="logo2" class="label-class">Giver your organization's event logo(in .png extension)</label>
             <input type="file" name="logo2" id="logo2" class="input-class" >
-
+            
             <label for="formfile" class="label-class">Enter your csv file </label>
             <input type="file" name="file" id="formfile" class="input-class" multiple="multiple" required>
+            
 
-            <label for="hod" class="label-class">Enter your hod sign </label>
-            <input type="file" name="hod" id="hod" class="input-class">
+            <label for="Organizer1Desig" class="label-class">Enter the organizer1 designation: </label>
+            <input type="text" name="Organizer1Desig" id="Organizer1Desig" class="input-class" required>
 
-            <label for="cc" class="label-class">Enter your c.c sign </label>
-            <input type="file" name="cc" id="cc" class="input-class" >
+            <label for="organizer1" class="label-class">Enter organizer1 sign </label>
+            <input type="file" name="organizer1" id="organizer1" class="input-class">
+
+
+            <label for="Organizer2Desig" class="label-class">Enter the organizer2 designation: </label>
+            <input type="text" name="Organizer2Desig" id="Organizer2Desig" class="input-class" required>
+
+            <label for="organizer2" class="label-class">Enter organizer2 sign </label>
+            <input type="file" name="organizer2" id="organizer2" class="input-class">
 
           </div>
 
