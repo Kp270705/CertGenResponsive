@@ -116,7 +116,7 @@ def ProcessData(eventname, orgname, certType, certificate_choice, oprchoice, csv
                     if i == 1:
                         break
 
-    zip_folder(f"./static/PDFFolder", f"./static/{oprchoice}edCertificate{i}.zip")
+    zip_folder(f"./static/PDFFolder", f"./static/{oprchoice}Certificate.zip")
     # return render_template(f"Register.html")        
     print(f"\tLogoFileName is:{logo1Path}")
     print(f"\n\tThere are {i} rows of data in given csv file.\n")

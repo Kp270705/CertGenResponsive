@@ -61,11 +61,9 @@ class PDF(FPDF):
     def certificate1(self, name, sId, course, sem, eventname, orgname, certType, certificateChoice, opertype, text_color, organizer1_designation, organizer2_designation, PDF_bg):
         print(f"in certificate1 method...(of gen_pdf)")
         date= dt.date.today()
-        print(f"date added")
         
         # Add page with landscape orientation
         self.add_page(orientation="L")
-        print(f"orientation taken...")
         
         w = self.w
         h = self.h
@@ -73,7 +71,6 @@ class PDF(FPDF):
         # Calculate margins and text width for centering (optional)
         left_margin = 20  # Adjust this value for desired left padding
         right_margin = self.w - left_margin  # Calculate right margin based on page width
-        print(f"left-right margin added successfully...")
         
         print(f"now we started applyining bg-image to pdf. ")
         self.image(f"{PDF_bg}", 0, 0, w, h)
@@ -110,8 +107,6 @@ class PDF(FPDF):
         self.set_font("Montserrat-Bold", size=38, style="B")
         self.set_text_color(text_color)
         self.multi_cell(270, 8, txt=self.section1, align='C')
-        print("Heading 1st created...")
-        print("Heading 1st created...")
         self.ln(4)
         
         sec2 = f"{certType.upper()}"
@@ -119,7 +114,6 @@ class PDF(FPDF):
         self.section2 = f"{spacedSection2}"
         self.set_font(f"Montserrat-Medium", size=28)
         self.multi_cell(277, 8, txt=self.section2, align='C')
-        print("Heading 2nd created...")
         self.ln(3)
         
         sec3 = f"IS  PROUDLY  PRESENTED  TO"
@@ -127,14 +121,12 @@ class PDF(FPDF):
         self.section3 = f"{sec3}"
         self.set_font("Montserrat-Regular", size=15)
         self.multi_cell(277, 20, txt=self.section3, align='C')
-        print("Heading 3rd created...")
         self.ln(5)
         
         spacedSection4 = add_spacing(name.upper(), 1)
         self.section4 = f"{spacedSection4}"
         self.set_font("Montserrat-Bold", size=30, style="UB")
         self.multi_cell(277, 5, txt=self.section4, align='C')
-        print("Heading 4th created...")
         self.ln(6)
 
         spacedSection5a = add_spacing(course.upper(), 2)
@@ -142,7 +134,6 @@ class PDF(FPDF):
         self.section5 = f"{spacedSection5a}                     {spacedSection5b}"
         self.set_font("Montserrat-Black", size=18, style="")
         self.multi_cell(277, 10, txt=self.section5, align='C')
-        print("Heading 5th created...")
         self.ln(10)
         
         # self.section6 = f"F O R   P A R T I C I P A T I N G  I N"
@@ -152,14 +143,12 @@ class PDF(FPDF):
         # self.set_font("Poppins-Bold", size=16, style="B")
         self.set_font("Montserrat-Regular", size=18)
         self.multi_cell(277, 8, txt=self.section6, align='C')
-        print("Heading 6th created...")
         self.ln(10)
 
         spacedSection7 = add_spacing(eventname.upper(), 1)
         self.section7 = f"{spacedSection7}"
         self.set_font("Poppins-ExtraBold", size=18, style="B")
         self.multi_cell(277, 7, txt=self.section7, align='C')
-        print("Heading 7th created...")
         self.ln(2)
 
         sec8 = f"ON"
@@ -167,12 +156,10 @@ class PDF(FPDF):
         self.section8 = f"{spacedSection8}"
         self.set_font("Poppins-Regular", size=13)
         self.multi_cell(277, 7, txt=self.section8, align='C')
-        print("Heading 8th created...")
 
         self.section9 = f"{date}"
         self.set_font("Poppins-ExtraBold", size=18, style="B")
         self.multi_cell(277, 10, txt=self.section9, align='C')
-        print("Heading 9th created...")
         self.ln(21)  # Add some space after title
 
         auth1 = f"{organizer1_designation}"
@@ -185,7 +172,6 @@ class PDF(FPDF):
         self.cell(90, 3, txt=f"{spacedSection10a}", align='C')
         self.set_left_margin(50)
         self.cell(50, 3, txt=f"{spacedSection10b}", align='C')
-        print("Heading 10th created...")
 
         print(f"Certificate generated successfully...")
         print("Certificate1() ends...")
@@ -272,6 +258,7 @@ class PDF(FPDF):
             sec6 = f"For  completing  the"
         if certType == "of completion":
             sec6 = f"For  completing  the"
+            
         # spacedSection6 = add_spacing(sec6, 2)
         self.section6 = f"{sec6}"
         # self.set_font("Poppins-Bold", size=16, style="B")
