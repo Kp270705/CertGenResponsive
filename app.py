@@ -214,13 +214,15 @@ def Register():
             db.session.commit()
             return redirect("/")
         
-    return render_template("Register.html")
+    return render_template("RegisterT.html")
 
 
 # landing page:
-@app.route("/landing")
+@app.route("/landing", methods=['GET', 'POST'])
 def landingPage():
-    return render_template("landing.html")
+    if request.method == "POST":
+        return render_template("landingT.html")
+    return render_template("landingT.html")
 
 #loggin page
 @app.route('/', methods=['GET', 'POST'])
@@ -230,31 +232,37 @@ def Loggin():
         email = request.form['email']
         name = request.form['username']
         password = request.form['password']
+        print(f"\npassword is: {password} ")
 
-        user = User.query.filter_by(email=email).first() # you can choose any of these filter_by()
-        # user = User.query.filter_by(name=name).first()
+        # user = User.query.filter_by(email=email).first() # you can choose any of these filter_by()
+        user = User.query.filter_by(name=name).first()
         # user = (User.query.filter_by(name=name).first()) and (User.query.filter_by(email=email).first())
         
         if user and user.check_password(password):
-            session['name'] = user.name # after selecting filter_by() on wish, select right session.
-            session['email'] = user.email
-            return redirect('/landing')
-        else:
-            return render_template('Loggin.html', error="Invalid user")
+            print(f"\n\npassword: {password}")
+            print(f"\n\n\tPassword matched...")
 
-    return render_template("Loggin.html")
+            # session['email'] = user.email
+            session['name'] = user.name # after selecting filter_by() on wish, select right session.
+
+            print(f"going to home")
+            return render_template("landingT.html")
+        
+        else:
+            return render_template('LogginT.html', error="Invalid user")
+
+    return render_template("LogginT.html")
 
 # home page: 
-@app.route("/home")
+@app.route("/home", methods=['GET', 'POST'])
 def home():
-    
-    # if session['email']: # then give here right session acc. to mentioned seesion in loggin route. 
-    # # if session['name']:
-    # # if (session['name']) and (session['email']):
-    #     return render_template("home.html")
-    
+    if request.method == "POST":
+        return render_template("home.html")
     return render_template("home.html")
-    
+
+@app.route("/about")
+def about():
+    return render_template("about.html")    
 
 # driver code: 
 if __name__  ==  "__main__":
