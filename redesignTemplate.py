@@ -27,21 +27,28 @@ def templatedesign(backgroundImagePath, logoPath, logo2Path, linepath, ccPath, h
   logo1_position = (90, 120) 
   logo_image1 = logo_image1.resize((logo1_new_width, logo1_new_height), Image.LANCZOS)
   print(f"Logo image resolution is: {logo_image1.size}")
+  mask = logo_image1.getchannel('A')
+  background_image.paste(logo_image1, logo1_position, mask)
 
 
-  logo_image2 = Image.open(f"{logo2Path}").convert('RGBA')  # Ensure RGBA mode
-  logo_width, logo_height = logo_image2.size
-  if logo_height == logo_width:
-    logo2_new_width = int(a4_width/8)
-    logo2_new_height = int(a4_height/6)
 
-  else:
-    logo2_new_width = int(a4_width/3)
-    logo2_new_height = int(a4_height/5)
+  if not (logo2Path == None):
+    logo_image2 = Image.open(f"{logo2Path}").convert('RGBA')  # Ensure RGBA mode
+    logo_width, logo_height = logo_image2.size
+    if logo_height == logo_width:
+      logo2_new_width = int(a4_width/8)
+      logo2_new_height = int(a4_height/6)
 
-  logo2_position = (2800, 1950) 
-  logo_image2 = logo_image2.resize((logo2_new_width, logo2_new_height), Image.LANCZOS)
-  print(f"Logo2 image resolution is: {logo_image1.size}")
+    else:
+      logo2_new_width = int(a4_width/3)
+      logo2_new_height = int(a4_height/5)
+
+    logo2_position = (2800, 1950) 
+    logo_image2 = logo_image2.resize((logo2_new_width, logo2_new_height), Image.LANCZOS)
+    print(f"Logo2 image resolution is: {logo_image1.size}")
+    mask2 = logo_image2.getchannel('A')
+    background_image.paste(logo_image2, logo2_position, mask2)
+
 
 
   cc_sign = Image.open(f"{ccPath}").convert('RGBA')  # Ensure RGBA mode
@@ -49,6 +56,9 @@ def templatedesign(backgroundImagePath, logoPath, logo2Path, linepath, ccPath, h
   cc_sign_height = int(a4_height/10)
   position3 = (1000, 1900)
   cc_sign = cc_sign.resize((cc_sign_width, cc_sign_height), Image.LANCZOS)
+  mask3 = cc_sign.getchannel('A')
+  background_image.paste(cc_sign, position3, mask3)
+
 
 
   hod_sign = Image.open(f"{hodPath}").convert('RGBA')  # Ensure RGBA mode
@@ -56,6 +66,9 @@ def templatedesign(backgroundImagePath, logoPath, logo2Path, linepath, ccPath, h
   hod_sign_height = int(a4_height/10)
   position4 = (2050, 1900)
   hod_sign = hod_sign.resize((hod_sign_width, hod_sign_height), Image.LANCZOS)
+  mask4 = hod_sign.getchannel('A')
+  background_image.paste(hod_sign, position4, mask4)
+
 
 
   line1 = Image.open(f"{linepath}").convert('RGBA')  # Ensure RGBA mode
@@ -63,6 +76,9 @@ def templatedesign(backgroundImagePath, logoPath, logo2Path, linepath, ccPath, h
   line1_height = int(a4_height/5)
   position5 = (850, 1900)
   line1 = line1.resize((line1_width, line1_height), Image.LANCZOS)
+  mask5 = line1.getchannel('A')
+  background_image.paste(line1, position5, mask5)
+
 
 
   line2 = Image.open(f"{linepath}").convert('RGBA')  # Ensure RGBA mode
@@ -70,23 +86,11 @@ def templatedesign(backgroundImagePath, logoPath, logo2Path, linepath, ccPath, h
   line2_height = int(a4_height/5)
   position6 = (1850, 1900)
   line2 = line2.resize((line2_width, line2_height), Image.LANCZOS)
-
-
-  # Get a mask from the alpha channel
-  mask = logo_image1.getchannel('A')
-  mask2 = logo_image2.getchannel('A')
-  mask3 = cc_sign.getchannel('A')
-  mask4 = hod_sign.getchannel('A')
-  mask5 = line1.getchannel('A')
   mask6 = line2.getchannel('A')
+  background_image.paste(line2, position6, mask6)
+
 
   # Paste the logo image with transparency mask
-  background_image.paste(logo_image1, logo1_position, mask)
-  background_image.paste(logo_image2, logo2_position, mask2)
-  background_image.paste(cc_sign, position3, mask3)
-  background_image.paste(hod_sign, position4, mask4)
-  background_image.paste(line1, position5, mask5)
-  background_image.paste(line2, position6, mask6)
 
   # Save the resulting image as PNG
   output_image_path = f"./static/Images/CertificateEssentials/FinalTemplate/finalTemplate.png"
@@ -108,6 +112,7 @@ def templatedesign2(backgroundImagePath, logoPath, logo2Path, linepath, ccPath, 
   print(f"Final Bg image resolution is: {background_image.size}")
 
 
+
   logo_image1 = Image.open(logoPath).convert('RGBA')  # Ensure RGBA mode
   logo_width, logo_height = logo_image1.size
   if logo_height == logo_width:
@@ -121,21 +126,28 @@ def templatedesign2(backgroundImagePath, logoPath, logo2Path, linepath, ccPath, 
   logo1_position = (90, 2150) 
   logo_image1 = logo_image1.resize((logo1_new_width, logo1_new_height), Image.LANCZOS)
   print(f"Logo image resolution is: {logo_image1.size}")
+  mask = logo_image1.getchannel('A')
+  background_image.paste(logo_image1, logo1_position, mask)
 
 
-  logo_image2 = Image.open(f"{logo2Path}").convert('RGBA')  # Ensure RGBA mode
-  logo_width, logo_height = logo_image2.size
-  if logo_height == logo_width:
-    logo2_new_width = int(a4_width/8)
-    logo2_new_height = int(a4_height/6)
 
-  else:
-    logo2_new_width = int(a4_width/3)
-    logo2_new_height = int(a4_height/5)
+  if not(logo2Path == None):
+    logo_image2 = Image.open(f"{logo2Path}").convert('RGBA')  # Ensure RGBA mode
+    logo_width, logo_height = logo_image2.size
+    if logo_height == logo_width:
+      logo2_new_width = int(a4_width/8)
+      logo2_new_height = int(a4_height/6)
 
-  logo2_position = (2800, 10) 
-  logo_image2 = logo_image2.resize((logo2_new_width, logo2_new_height), Image.LANCZOS)
-  print(f"Logo2 image resolution is: {logo_image1.size}")
+    else:
+      logo2_new_width = int(a4_width/3)
+      logo2_new_height = int(a4_height/5)
+
+    logo2_position = (2800, 10) 
+    logo_image2 = logo_image2.resize((logo2_new_width, logo2_new_height), Image.LANCZOS)
+    print(f"Logo2 image resolution is: {logo_image1.size}")
+    mask2 = logo_image2.getchannel('A')
+    background_image.paste(logo_image2, logo2_position, mask2)
+
 
 
   cc_sign = Image.open(f"{ccPath}").convert('RGBA')  # Ensure RGBA mode
@@ -143,6 +155,10 @@ def templatedesign2(backgroundImagePath, logoPath, logo2Path, linepath, ccPath, 
   cc_sign_height = int(a4_height/10)
   position3 = (1000, 1900)
   cc_sign = cc_sign.resize((cc_sign_width, cc_sign_height), Image.LANCZOS)
+  mask3 = cc_sign.getchannel('A')
+  background_image.paste(cc_sign, position3, mask3)
+  
+
 
 
   hod_sign = Image.open(f"{hodPath}").convert('RGBA')  # Ensure RGBA mode
@@ -150,6 +166,9 @@ def templatedesign2(backgroundImagePath, logoPath, logo2Path, linepath, ccPath, 
   hod_sign_height = int(a4_height/10)
   position4 = (2050, 1900)
   hod_sign = hod_sign.resize((hod_sign_width, hod_sign_height), Image.LANCZOS)
+  mask4 = hod_sign.getchannel('A')
+  background_image.paste(hod_sign, position4, mask4)
+
 
 
   line1 = Image.open(f"{linepath}").convert('RGBA')  # Ensure RGBA mode
@@ -157,6 +176,9 @@ def templatedesign2(backgroundImagePath, logoPath, logo2Path, linepath, ccPath, 
   line1_height = int(a4_height/5)
   position5 = (950, 1900)
   line1 = line1.resize((line1_width, line1_height), Image.LANCZOS)
+  mask5 = line1.getchannel('A')
+  background_image.paste(line1, position5, mask5)
+
 
 
   line2 = Image.open(f"{linepath}").convert('RGBA')  # Ensure RGBA mode
@@ -164,23 +186,9 @@ def templatedesign2(backgroundImagePath, logoPath, logo2Path, linepath, ccPath, 
   line2_height = int(a4_height/5)
   position6 = (1860, 1900)
   line2 = line2.resize((line2_width, line2_height), Image.LANCZOS)
-
-
-  # Get a mask from the alpha channel
-  mask = logo_image1.getchannel('A')
-  mask2 = logo_image2.getchannel('A')
-  mask3 = cc_sign.getchannel('A')
-  mask4 = hod_sign.getchannel('A')
-  mask5 = line1.getchannel('A')
   mask6 = line2.getchannel('A')
-
-  # Paste the logo image with transparency mask
-  background_image.paste(logo_image1, logo1_position, mask)
-  background_image.paste(logo_image2, logo2_position, mask2)
-  background_image.paste(cc_sign, position3, mask3)
-  background_image.paste(hod_sign, position4, mask4)
-  background_image.paste(line1, position5, mask5)
   background_image.paste(line2, position6, mask6)
+
 
   # Save the resulting image as PNG
   output_image_path = f"./static/Images/CertificateEssentials/FinalTemplate/finalTemplate.png"

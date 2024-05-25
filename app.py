@@ -88,7 +88,7 @@ def ProcessData(eventname, orgname, certType, certificate_choice, oprchoice, csv
             i=0
             for CSV in csvData:
                     i+=1
-                    getData(CSV.name, CSV.sId, CSV.duration, CSV.pulse, CSV.maxpulse, CSV.calories, CSV.course, CSV.semester, i, eventname, orgname, certType, certificate_choice, oprchoice, organizer1_designation, organizer2_designation, finalTemplatePath)
+                    getData(CSV.name, CSV.sId, CSV.emailId, CSV.duration, CSV.pulse, CSV.maxpulse, CSV.calories, CSV.course, CSV.semester, i, eventname, orgname, certType, certificate_choice, oprchoice, organizer1_designation, organizer2_designation, finalTemplatePath)
 
 
         case "Preview":
@@ -112,7 +112,7 @@ def ProcessData(eventname, orgname, certType, certificate_choice, oprchoice, csv
             i=0
             for CSV in csvData:
                     i+=1
-                    getData(CSV.name, CSV.sId, CSV.duration, CSV.pulse, CSV.maxpulse, CSV.calories, CSV.course, CSV.semester, i, eventname, orgname, certType, certificate_choice, oprchoice, organizer1_designation, organizer2_designation, finalTemplatePath)
+                    getData(CSV.name, CSV.sId, CSV.emailId, CSV.duration, CSV.pulse, CSV.maxpulse, CSV.calories, CSV.course, CSV.semester, i, eventname, orgname, certType, certificate_choice, oprchoice, organizer1_designation, organizer2_designation, finalTemplatePath)
                     if i == 1:
                         break
 
@@ -151,7 +151,7 @@ def upload_file():
         print(f"{request.files}")
         CsvFile = request.files['file']
         Logo1File = request.files["logo"] # to get name of logo file
-        Logo2File = request.files["logo2"] 
+        Logo2File = request.files["logo2"]
 
         organizer1File = request.files["organizer1"] 
         organizer2File = request.files["organizer2"] 
@@ -169,10 +169,12 @@ def upload_file():
             
         if (Logo1File and allowed_file(Logo1File.filename)) or (Logo1File.filename) :
             logo1_filename = secure_filename(Logo1File.filename)
+            print(f"\n\n\tlogo1_filename:{logo1_filename}")   
             Logo1File.save(os.path.join(app.config['UPLOAD_FOLDER'], logo1_filename))
 
         if (Logo2File and allowed_file(Logo2File.filename)) or (Logo2File.filename) :
             logo2_filename = secure_filename(Logo2File.filename)
+            print(f"\n\n\tlogo2_filename:{logo2_filename}")   
             Logo2File.save(os.path.join(app.config['UPLOAD_FOLDER'], logo2_filename))
 
         if (organizer1File and allowed_file(organizer1File.filename)) or (organizer1File.filename) :
@@ -182,13 +184,32 @@ def upload_file():
         if (organizer2File and allowed_file(organizer2File.filename)) or (organizer2File.filename) :
             organizer2_filename = secure_filename(organizer2File.filename)
             organizer2File.save(os.path.join(app.config['UPLOAD_FOLDER'], organizer2_filename))
-            
+
+        print(f"logo2 file: {Logo2File}")
+
         if oprchoice == "Generate":
-            ProcessData(eventName, orgName, certType, certificate_choice_id, oprchoice, f"{userFiles}/{csv_filename}", f"{userFiles}/{logo1_filename}", f"{userFiles}/{logo2_filename}", organizer1, f"{userFiles}/{organizer1_filename}", organizer2, f"{userFiles}/{organizer2_filename}")
+            # if Logo2File == "<'' ('application/octet-stream')>":
+            if Logo2File.filename == '':
+                print(f'\n\n\tIn if condition')
+                ProcessData(eventName, orgName, certType, certificate_choice_id, oprchoice, f"{userFiles}/{csv_filename}", f"{userFiles}/{logo1_filename}", None, organizer1, f"{userFiles}/{organizer1_filename}", organizer2, f"{userFiles}/{organizer2_filename}")
+            else:
+                print(f'\n\n\tIn else condition...')
+                ProcessData(eventName, orgName, certType, certificate_choice_id, oprchoice, f"{userFiles}/{csv_filename}", f"{userFiles}/{logo1_filename}", f"{userFiles}/{logo2_filename}", organizer1, f"{userFiles}/{organizer1_filename}", organizer2, f"{userFiles}/{organizer2_filename}")
+
             return render_template("ack.html")
+        
         if oprchoice == "Preview":
-            ProcessData(eventName, orgName, certType, certificate_choice_id, oprchoice, f"{userFiles}/{csv_filename}", f"{userFiles}/{logo1_filename}", f"{userFiles}/{logo2_filename}", organizer1, f"{userFiles}/{organizer1_filename}", organizer2, f"{userFiles}/{organizer2_filename}")
+            # if Logo2File == "<FileStorage: '' ('application/octet-stream')>":
+            if Logo2File.filename == '':
+                print(f'\n\n\tIn if condition')
+                ProcessData(eventName, orgName, certType, certificate_choice_id, oprchoice, f"{userFiles}/{csv_filename}", f"{userFiles}/{logo1_filename}", None, organizer1, f"{userFiles}/{organizer1_filename}", organizer2, f"{userFiles}/{organizer2_filename}")
+            else:
+                print(f'\n\n\tIn else condition...')
+                ProcessData(eventName, orgName, certType, certificate_choice_id, oprchoice, f"{userFiles}/{csv_filename}", f"{userFiles}/{logo1_filename}", f"{userFiles}/{logo2_filename}", organizer1, f"{userFiles}/{organizer1_filename}", organizer2, f"{userFiles}/{organizer2_filename}")
+
             return render_template("preview.html")
+        
+
         print("After ProcessData()...")
 
     return render_template("home.html")
@@ -227,8 +248,8 @@ def landingPage():
 #loggin page
 @app.route('/', methods=['GET', 'POST'])
 def Loggin():
+    print(f"\n\n\nMethod is: {request.method} ")
     if request.method == "POST":
-        
         email = request.form['email']
         name = request.form['username']
         password = request.form['password']
@@ -236,7 +257,11 @@ def Loggin():
 
         # user = User.query.filter_by(email=email).first() # you can choose any of these filter_by()
         user = User.query.filter_by(name=name).first()
+
         # user = (User.query.filter_by(name=name).first()) and (User.query.filter_by(email=email).first())
+
+        print(f"\n\tuser is: {user} ")
+        print(f"\n\tuser password is: {user.check_password(password)} ")
         
         if user and user.check_password(password):
             print(f"\n\npassword: {password}")
@@ -249,7 +274,10 @@ def Loggin():
             return render_template("landingT.html")
         
         else:
+            print("\n\n\tpassword not match...")
             return render_template('LogginT.html', error="Invalid user")
+    if request.method == "GET":
+        return render_template ("LogginT.html")
 
     return render_template("LogginT.html")
 

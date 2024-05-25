@@ -58,7 +58,7 @@ class PDF(FPDF):
         pass     
         
 # certificate design1:-        
-    def certificate1(self, name, sId, course, sem, eventname, orgname, certType, certificateChoice, opertype, text_color, organizer1_designation, organizer2_designation, PDF_bg):
+    def certificate1(self, name, sId, receiver_mail, course, sem, eventname, orgname, i, certType, certificateChoice, opertype, text_color, organizer1_designation, organizer2_designation, PDF_bg):
         print(f"in certificate1 method...(of gen_pdf)")
         date= dt.date.today()
         
@@ -173,13 +173,13 @@ class PDF(FPDF):
         self.set_left_margin(50)
         self.cell(50, 3, txt=f"{spacedSection10b}", align='C')
 
-        print(f"Certificate generated successfully...")
+        print(f"Certificate {i} generated successfully...")
         print("Certificate1() ends...")
 
 
 # -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    def certificate2(self, name, sId, course, sem, eventname, orgname, certType, certificateChoice, opertype, text_color, organizer1_designation, organizer2_designation, PDF_bg):
+    def certificate2(self, name, sId, receiver_mail, course, sem, eventname, orgname, i, certType, certificateChoice, opertype, text_color, organizer1_designation, organizer2_designation, PDF_bg):
         print(f"in certificate2 method...(of gen_pdf)")
         date= dt.date.today()
         
@@ -296,14 +296,14 @@ class PDF(FPDF):
         self.set_left_margin(160)
         self.cell(50, 3, txt=f"{spacedSection10b}", align='C')
 
-        print(f"Certificate generated successfully...")
+        print(f"Certificate{i}  generated successfully...")
         print("Certificate2() ends...")        
 
 
 # --------------------------------------------------------------------------     
      
     #  design3   
-    def certificate3(self, name, sId, course, sem, eventname, orgname, certificateChoice, opertype, text_color, PDF_bg):
+    def certificate3(self, name, sId, receiver_mail, course, sem, eventname, orgname, i, certificateChoice, opertype, text_color, PDF_bg):
         print(f"in {certificateChoice}")
         date= dt.date.today()
 
@@ -393,7 +393,7 @@ class PDF(FPDF):
 # --------------------------------------------------------------------------     
 
 
-def getData(name, sId, Duration, pulse, maxPulse, calories, course, sem, i, eventname, orgName, certType, certificateChoice, opertype, organizer1_designation, organizer2_designation, PDF_TemplatePath):
+def getData(name, sId, receiverMail, Duration, pulse, maxPulse, calories, course, sem, i, eventname, orgName, certType, certificateChoice, opertype, organizer1_designation, organizer2_designation, PDF_TemplatePath):
     print(f"i={i}")
     
     # Create PDFFolder if it doesn't exist
@@ -416,16 +416,18 @@ def getData(name, sId, Duration, pulse, maxPulse, calories, course, sem, i, even
         if certificateChoice == "Choice2" or certificateChoice == "Choice3":
             fontcolor = 0
 
-        pdf.certificate1(name, sId, course, sem, eventname, orgName, certType, certificateChoice, opertype, fontcolor, organizer1_designation, organizer2_designation, PDF_TemplatePath)
+        pdf.certificate1(name, sId, receiverMail, course, sem, eventname, orgName, i, certType, certificateChoice, opertype, fontcolor, organizer1_designation, organizer2_designation, PDF_TemplatePath)
         print(f"success")
 
 
     if certificateChoice == "Choice4":
         fontcolor = 220
-        pdf.certificate2(name, sId, course, sem, eventname, orgName, certType, certificateChoice, opertype, fontcolor, organizer1_designation, organizer2_designation, PDF_TemplatePath)
+        pdf.certificate2(name, sId, receiverMail, course, sem, eventname, orgName, i, certType, certificateChoice, opertype, fontcolor, organizer1_designation, organizer2_designation, PDF_TemplatePath)
         print(f"course: {course}")
 
 
     pdf.output(f"./static/PDFFolder/{opertype}Certificate{i}.pdf")
+    from sendingMails import send_mails
+    send_mails(f"kunalpathak4774@gmail.com", receiverMail, f"./static/PDFFolder/{opertype}Certificate{i}.pdf", eventname, certType)
     
 

@@ -8,7 +8,7 @@ i=0
 
 # main class for content of certificate: 
 class Workout:
-    def __init__(self, name, duration, pulse, maxpulse, calories, course, sId, semester):
+    def __init__(self, name, duration, pulse, maxpulse, calories, course, sId, emailId, semester):
         self.name = name
         self.calories = calories
         self.pulse=pulse
@@ -16,6 +16,7 @@ class Workout:
         self.duration=duration
         self.course = course
         self.sId = sId
+        self.emailId = emailId
         self.semester = semester
 
 # main logic of code: 
@@ -31,13 +32,14 @@ def processFile(csv_file_path):
             name = str(row["Name"]) if row["Name"] else " "
             course = str(row["Course"]) if row["Course"] else " "
             sId = str(row["ID"]) if row["ID"] else " "
+            emailId = str(row["email"]) if row["email"] else " "
             semester = str(row["Semester"]) if row["Semester"] else " "
             duration = float(row["Duration"]) if row["Duration"] else 0.0
             pulse=float(row["Pulse"]) if row["Pulse"] else 0.0
             maxpulse=float(row["Maxpulse"]) if row["Maxpulse"] else 0.0
             calories=float(row["Calories"]) if row["Calories"] else 0.0
 
-            workout_obj= Workout(name, duration, pulse, maxpulse, calories, course, sId, semester)
+            workout_obj= Workout(name, duration, pulse, maxpulse, calories, course, sId, emailId, semester)
             Local_workout_data.append(workout_obj)
             
     workout_data = Local_workout_data
