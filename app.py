@@ -64,55 +64,66 @@ def ProcessData(eventname, orgname, certType, certificate_choice, oprchoice, csv
 
     from getPath import get_Choice_data
 
-    from redesignTemplate import templatedesign, templatedesign2
+    from redesignTemplate import templatedesign1_2_3, templatedesign4, templatedesign5
     match oprchoice:
 
         case "Generate":
             if certificate_choice == "Choice1":
                 pathkey = get_Choice_data(certificate_choice)
                 print(f"{pathkey}")
-                finalTemplatePath = templatedesign(pathkey["TemplatePath"], logo1Path, logo2Path, pathkey["linepath"], organizer1Path, organizer2Path)
+                finalTemplatePath = templatedesign1_2_3(pathkey["TemplatePath"], logo1Path, logo2Path, pathkey["linepath"], organizer1Path, organizer2Path)
 
             if certificate_choice == "Choice2":
                 pathkey = get_Choice_data(certificate_choice)
-                finalTemplatePath = templatedesign(pathkey["TemplatePath"], logo1Path, logo2Path, pathkey["linepath"], organizer1Path, organizer2Path)
+                finalTemplatePath = templatedesign1_2_3(pathkey["TemplatePath"], logo1Path, logo2Path, pathkey["linepath"], organizer1Path, organizer2Path)
 
             if certificate_choice == "Choice3":
                 pathkey = get_Choice_data(certificate_choice)
-                finalTemplatePath = templatedesign(pathkey["TemplatePath"], logo1Path, logo2Path, pathkey["linepath"], organizer1Path, organizer2Path)
+                finalTemplatePath = templatedesign1_2_3(pathkey["TemplatePath"], logo1Path, logo2Path, pathkey["linepath"], organizer1Path, organizer2Path)
 
             if certificate_choice == "Choice4":
                 pathkey = get_Choice_data(certificate_choice)
-                finalTemplatePath = templatedesign2(pathkey["TemplatePath"], logo1Path, logo2Path, pathkey["linepath"], organizer1Path, organizer2Path)
+                finalTemplatePath = templatedesign4(pathkey["TemplatePath"], logo1Path, logo2Path, pathkey["linepath"], organizer1Path, organizer2Path)
+            
+            if certificate_choice == "Choice5":
+                print(f"\n\tin {certificate_choice} ")
+                pathkey = get_Choice_data(certificate_choice)
+                finalTemplatePath = templatedesign5(pathkey["TemplatePath"], logo1Path, logo2Path, pathkey["linepath"], organizer1Path, organizer2Path)
+
 
             i=0
             for CSV in csvData:
                     i+=1
-                    getData(CSV.name, CSV.sId, CSV.emailId, CSV.duration, CSV.pulse, CSV.maxpulse, CSV.calories, CSV.course, CSV.semester, i, eventname, orgname, certType, certificate_choice, oprchoice, organizer1_designation, organizer2_designation, finalTemplatePath)
+                    getData(CSV.name, CSV.sId, CSV.emailId, CSV.course, CSV.semester, i, eventname, orgname, certType, certificate_choice, oprchoice, organizer1_designation, organizer2_designation, finalTemplatePath)
 
 
         case "Preview":
 
             if certificate_choice == "Choice1":
                 pathkey = get_Choice_data(certificate_choice)
-                finalTemplatePath = templatedesign(pathkey["TemplatePath"], logo1Path, logo2Path, pathkey["linepath"], organizer1Path, organizer2Path)
+                finalTemplatePath = templatedesign1_2_3(pathkey["TemplatePath"], logo1Path, logo2Path, pathkey["linepath"], organizer1Path, organizer2Path)
                 
             if certificate_choice == "Choice2":
                 pathkey = get_Choice_data(certificate_choice)
-                finalTemplatePath = templatedesign(pathkey["TemplatePath"], logo1Path, logo2Path, pathkey["linepath"], organizer1Path, organizer2Path)
+                finalTemplatePath = templatedesign1_2_3(pathkey["TemplatePath"], logo1Path, logo2Path, pathkey["linepath"], organizer1Path, organizer2Path)
 
             if certificate_choice == "Choice3":
                 pathkey = get_Choice_data(certificate_choice)
-                finalTemplatePath = templatedesign(pathkey["TemplatePath"], logo1Path, logo2Path, pathkey["linepath"], organizer1Path, organizer2Path)
+                finalTemplatePath = templatedesign1_2_3(pathkey["TemplatePath"], logo1Path, logo2Path, pathkey["linepath"], organizer1Path, organizer2Path)
 
             if certificate_choice == "Choice4":
                 pathkey = get_Choice_data(certificate_choice)
-                finalTemplatePath = templatedesign2(pathkey["TemplatePath"], logo1Path, logo2Path, pathkey["linepath"], organizer1Path, organizer2Path)
+                finalTemplatePath = templatedesign4(pathkey["TemplatePath"], logo1Path, logo2Path, pathkey["linepath"], organizer1Path, organizer2Path)
 
+            if certificate_choice == "Choice5":
+                pathkey = get_Choice_data(certificate_choice)
+                finalTemplatePath = templatedesign5(pathkey["TemplatePath"], logo1Path, logo2Path, pathkey["linepath"], organizer1Path, organizer2Path)
+            
+            
             i=0
             for CSV in csvData:
                     i+=1
-                    getData(CSV.name, CSV.sId, CSV.emailId, CSV.duration, CSV.pulse, CSV.maxpulse, CSV.calories, CSV.course, CSV.semester, i, eventname, orgname, certType, certificate_choice, oprchoice, organizer1_designation, organizer2_designation, finalTemplatePath)
+                    getData(CSV.name, CSV.sId, CSV.emailId, CSV.course, CSV.semester, i, eventname, orgname, certType, certificate_choice, oprchoice, organizer1_designation, organizer2_designation, finalTemplatePath)
                     if i == 1:
                         break
 
@@ -120,6 +131,7 @@ def ProcessData(eventname, orgname, certType, certificate_choice, oprchoice, csv
     # return render_template(f"Register.html")        
     print(f"\tLogoFileName is:{logo1Path}")
     print(f"\n\tThere are {i} rows of data in given csv file.\n")
+
 
 
 # check file exist or not, if exist then process task:

@@ -5,6 +5,15 @@ import datetime as dt
 # fonts_truetype = f"/usr/share/fonts/truetype"
 fonts_truetype_Poppins = f"/usr/share/fonts/truetype/Poppins"
 fonts_truetype_Montserrat = f"/usr/share/fonts/truetype/Montserrat"
+fonts_truetype_edu = f"/usr/share/fonts/truetype/Edu_NSW_ACT_Foundation"
+fonts_truetype_meriweath = f"/usr/share/fonts/truetype/Merriweath"
+
+# random:
+eufm = f"/usr/share/fonts/truetype/lyx"
+greatvibes = f"/usr/share/fonts/truetype/Great_Vibes"
+Playfair = f"/usr/share/fonts/truetype/Playfair"
+
+
 FONTS = {
         # poppins:
         "Poppins" :  {
@@ -27,6 +36,24 @@ FONTS = {
             "MontserratMedium" : f"{fonts_truetype_Montserrat}/Montserrat-Medium.ttf",
             "MontserratRegular" : f"{fonts_truetype_Montserrat}/Montserrat-Regular.ttf",
             "MontserratThin" : f"{fonts_truetype_Montserrat}/Montserrat-Thin.ttf"
+        },
+
+        "edu" :{
+            "ENAF" : f"{fonts_truetype_edu}/EduNSWACTFoundation-VariableFont_wght.ttf",
+
+        }, 
+
+        "Merriweath":{
+            "MerriBlack": f"{fonts_truetype_meriweath}/Merriweather-Black.ttf",
+            "MerriBold": f"{fonts_truetype_meriweath}/Merriweather-Bold.ttf",
+            "MerriLight": f"{fonts_truetype_meriweath}/Merriweather-Light.ttf",
+            "MerriRegular": f"{fonts_truetype_meriweath}/Merriweather-Regular.ttf",
+        }, 
+
+        "RandomFonts":{
+            "eufm10" : f"{eufm}/eufm10.ttf",
+            "GreatVibeReg": f"{greatvibes}/GreatVibes-Regular.ttf" ,
+            "Playfair" : f"{Playfair}/PlayfairDisplay-VariableFont_wght.ttf"
         }
 
 }
@@ -300,10 +327,149 @@ class PDF(FPDF):
         print("Certificate2() ends...")        
 
 
+# --------------------------------------------------------------------------
+
+    def certificate5(self, name, sId, receiver_mail, course, sem, eventname, orgname, i, certType, certificateChoice, opertype, text_color, organizer1_designation, organizer2_designation, PDF_bg):
+        print(f"in certificate2 method...(of gen_pdf)")
+        date= dt.date.today()
+        
+        # Add pag:
+        self.add_page(orientation="L")
+        w = self.w
+        h = self.h
+        left_margin = 20  
+        right_margin = self.w - left_margin  
+        
+        print("Now we adding the image...")
+        # self.image(f"{PDF_bg}", 0, 0, w, h)
+        self.image(f"{PDF_bg}", 0, 0, w, h)
+        print("Image added successfully...")
+
+        #adding fonts:        
+        # poppins:
+        self.add_font('Poppins-ExtraBold', "B", f"{FONTS['Poppins']['poppinsExtraBold']}" , uni=True)
+        self.add_font('Poppins-Bold', "B", f"{FONTS['Poppins']['poppinsBold']}" , uni=True)
+        self.add_font('Poppins-Medium', "", f"{FONTS['Poppins']['poppinsMedium']}" , uni=True)
+        self.add_font('Poppins-Light', "", f"{FONTS['Poppins']['poppinsExtraLight']}" , uni=True)
+        self.add_font('Poppins-ExtraLight', "", f"{FONTS['Poppins']['poppinsLight']}" , uni=True)
+        self.add_font('Poppins-Regular', "", f"{FONTS['Poppins']['poppinsRegular']}" , uni=True)
+        self.add_font('Poppins-SemiBold', "B", f"{FONTS['Poppins']['poppinsSemiBold']}" , uni=True)
+
+        # montserrat:
+        self.add_font("Montserrat-Black", "", f"{FONTS['Montserrat']['MontserratBlack']}", uni=1 )
+        self.add_font("Montserrat-Bold", "B", f"{FONTS['Montserrat']['MontserratBold']}", uni=1 )
+        self.add_font("Montserrat-SemiBold", "B", f"{FONTS['Montserrat']['MontserratSemiBold']}", uni=1 )
+        self.add_font("Montserrat-ExtraBold", "B", f"{FONTS['Montserrat']["MontserratExtraBold"]}", uni=1 )
+        self.add_font("Montserrat-Regular", "", f"{FONTS['Montserrat']["MontserratRegular"]}", uni=1 )
+        self.add_font("Montserrat-Thin", "", f"{FONTS['Montserrat']["MontserratThin"]}", uni=1 )
+        self.add_font("Montserrat-Medium", "", f"{FONTS['Montserrat']["MontserratMedium"]}", uni=1 )
+
+
+        self.add_font("Merriweather-Black", "", f"{FONTS['Merriweath']['MerriBlack']}", uni=1 )
+        self.add_font("Merriweather-Bold", "B", f"{FONTS['Merriweath']['MerriBold']}", uni=1 )
+        self.add_font("Merriweather-Light", "B", f"{FONTS['Merriweath']['MerriLight']}", uni=1 )
+        self.add_font("Merriweather-Regular", "", f"{FONTS['Merriweath']['MerriRegular']}", uni=1 )
+
+        #random
+        self.add_font("eufm10", "", f"{FONTS['RandomFonts']['eufm10']}", uni=1 )
+        self.add_font("GreatVibes-Regular", "", f"{FONTS['RandomFonts']['GreatVibeReg']}", uni=1 )
+        self.add_font("PlayfairDisplay-VariableFont_wght", "", f"{FONTS['RandomFonts']['Playfair']}", uni=1 )
+
+
+        # Set font
+        self.ln(20)
+        sec1 = f"  CERTIFICATE"
+        spacedSection1 = add_spacing(sec1, 3)
+        self.section1 = f"{sec1}"
+        self.set_font("Merriweather-Bold", size=25, style="B")
+        self.set_text_color(2, 63, 48)
+        self.multi_cell(270, 8, txt=spacedSection1, align='C')
+        self.ln(40)
+        
+        sec2 = f"{certType.upper()}"
+        spacedSection2 = add_spacing(sec2, 1)
+        self.section2 = f"{spacedSection2}"
+        self.set_font("Merriweather-Regular", size=15)
+        self.set_text_color(0)
+        self.multi_cell(277, 8, txt=spacedSection2, align='C')
+        self.ln(3)
+        
+        sec3 = f"IS  PROUDLY  PRESENTED  TO"
+        self.section3 = f"{sec3}"
+        self.set_font("Montserrat-Regular", size=15)
+        self.multi_cell(277, 20, txt=self.section3, align='C')
+        self.ln(6)
+        
+        spacedSection4 = add_spacing(name.upper(), 1)
+        self.section4 = f"{spacedSection4}"
+        self.set_font("Merriweather-Regular", size=25, style="U")
+        self.set_text_color(218, 165,32)
+        self.multi_cell(277, 5, txt=self.section4, align='C')
+        self.ln(6)
+
+        spacedSection5a = add_spacing(course.upper(), 2)
+        spacedSection5b = add_spacing(sem.upper(), 2)
+        self.section5 = f"{spacedSection5a}                   {spacedSection5b}"
+        self.set_font("Montserrat-Black", size=15, style="")
+        self.set_text_color(0)
+        self.multi_cell(277, 10, txt=self.section5, align='C')
+        self.ln(5)
+        
+
+        if certType == "of participation":
+            sec6 = f"For  participating  in"
+        if certType == "Certificate of completion":
+            sec6 = f"For  completing  the"
+        if certType == "of appreciation":
+            sec6 = f"For  completing  the"
+        if certType == "of completion":
+            sec6 = f"For  completing  the"
+
+        self.section6 = f"{sec6}"
+        self.set_font("PlayfairDisplay-VariableFont_wght", size=15)
+        self.set_left_margin(105)
+        self.cell(18, 8, txt=self.section6, align='L')
+
+
+        spacedSection7 = add_spacing(eventname, 0)
+        self.section7 = f"{spacedSection7}"
+        self.set_font("Merriweather-Black", size=15, style="")
+        self.set_left_margin(2)
+        self.cell(100, 8, txt=self.section7, align='C')
+        self.ln(10)
+
+
+        sec8 = f" ON"
+        spacedSection8 = add_spacing(sec8, 2)
+        self.section8 = f"{spacedSection8}"
+        self.set_font("Poppins-Regular", size=13)
+        self.multi_cell(277, 5, txt=self.section8, align='C')
+        self.ln(1)
+
+        self.section9 = f" {date}"
+        print(f"\n\n\tDate: {date}")
+        self.set_font("Poppins-SemiBold", size=18, style="B")
+        self.multi_cell(277, 6, txt=self.section9, align='C')
+        self.ln(20)
+
+        auth1 = f"{organizer1_designation}"
+        auth2 = f"{organizer2_designation}"
+        spacedSection10a = add_spacing(auth1.upper(), 1)
+        spacedSection10b = add_spacing(auth2.upper(), 1)
+        self.section10 = f"{spacedSection10a}   {spacedSection10b}"
+        self.set_font("Montserrat-Black", size=10, style="")
+        self.set_left_margin(80)
+        self.cell(80, 3, txt=f"{spacedSection10a}", align='C')
+        self.set_left_margin(60)
+        self.cell(60, 3, txt=f"{spacedSection10b}", align='C')
+
+        print(f"Certificate generated successfully...")
+        print("Certificate2() ends...")
+
 # --------------------------------------------------------------------------     
      
     #  design3   
-    def certificate3(self, name, sId, receiver_mail, course, sem, eventname, orgname, i, certificateChoice, opertype, text_color, PDF_bg):
+    def certificateRandom(self, name, sId, receiver_mail, course, sem, eventname, orgname, i, certificateChoice, opertype, text_color, PDF_bg):
         print(f"in {certificateChoice}")
         date= dt.date.today()
 
@@ -388,12 +554,13 @@ class PDF(FPDF):
         self.set_left_margin(180)
         self.set_font("Arial", size=14, style="B")
         self.cell(180, 10, txt=self.section10, align="L")
+    
 
 
 # --------------------------------------------------------------------------     
 
 
-def getData(name, sId, receiverMail, Duration, pulse, maxPulse, calories, course, sem, i, eventname, orgName, certType, certificateChoice, opertype, organizer1_designation, organizer2_designation, PDF_TemplatePath):
+def getData(name, sId, receiverMail, course, sem, i, eventname, orgName, certType, certificateChoice, opertype, organizer1_designation, organizer2_designation, PDF_TemplatePath):
     print(f"i={i}")
     
     # Create PDFFolder if it doesn't exist
@@ -423,6 +590,11 @@ def getData(name, sId, receiverMail, Duration, pulse, maxPulse, calories, course
     if certificateChoice == "Choice4":
         fontcolor = 220
         pdf.certificate2(name, sId, receiverMail, course, sem, eventname, orgName, i, certType, certificateChoice, opertype, fontcolor, organizer1_designation, organizer2_designation, PDF_TemplatePath)
+        print(f"course: {course}")
+
+    if certificateChoice == "Choice5":
+        fontcolor = 220
+        pdf.certificate5(name, sId, receiverMail, course, sem, eventname, orgName, i, certType, certificateChoice, opertype, fontcolor, organizer1_designation, organizer2_designation, PDF_TemplatePath)
         print(f"course: {course}")
 
 

@@ -7,31 +7,26 @@ from email import encoders
 
 from passwords_info import mail2_pass
 
-
-def send_mails(email_sender, email_receiver, file_Path, eventname, cert_type):
+def send_mails(email_sender, email_receiver, file_path, eventname, cert_type):
 
     email_subject = f"Your {eventname} certificate."
-    email_body = f"This is to inform you, we just send your {eventname}'s certificate {cert_type}. "
+    email_body = f"This is to inform you, we just sent your {eventname}'s certificate {cert_type}."
     password = mail2_pass
 
     msg = MIMEMultipart()
     msg['From'] = email_sender
     msg['To'] = email_receiver
     msg['Subject'] = email_subject
-    # msg.set_content = email_body
     msg.attach(MIMEText(email_body, 'plain'))
 
-    # open the file to sent:
-    filename = file_Path
-    attachment = open(filename, 'rb')
-
-    p = MIMEBase('application', 'octet-stream')
-
-    p.set_payload((attachment).read())  # when we attach any file with text(or mix with anything) this is known as payload. 
+    # open the file to send:
+    filename = os.path.basename(file_path)
+    with open(file_path, 'rb') as attachment:
+        p = MIMEBase('application', 'octet-stream')
+        p.set_payload(attachment.read())
 
     encoders.encode_base64(p)
-
-    p.add_header("Content-Disposition", "attachment: filename= %s"%filename)
+    p.add_header("Content-Disposition", f"attachment; filename={filename}")
 
     msg.attach(p)
 
@@ -43,5 +38,4 @@ def send_mails(email_sender, email_receiver, file_Path, eventname, cert_type):
     server.send_message(msg)
     server.quit()
 
-    print("message send successfully....")
-
+    print("Message sent successfully....")
