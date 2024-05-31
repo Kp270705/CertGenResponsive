@@ -85,9 +85,10 @@ class PDF(FPDF):
         pass     
         
 # certificate design1:-        
-    def certificate1(self, name, sId, receiver_mail, course, sem, eventname, orgname, i, certType, certificateChoice, opertype, text_color, organizer1_designation, organizer2_designation, PDF_bg):
+    def certificate1(self, name, sId, receiver_mail, course, sem, date, eventname, orgname, i, certType, certificateChoice, opertype, text_color, organizer1_designation, organizer2_designation, PDF_bg):
         print(f"in certificate1 method...(of gen_pdf)")
-        date= dt.date.today()
+        # date= dt.date.today()
+        date=date
         
         # Add page with landscape orientation
         self.add_page(orientation="L")
@@ -99,9 +100,9 @@ class PDF(FPDF):
         left_margin = 20  # Adjust this value for desired left padding
         right_margin = self.w - left_margin  # Calculate right margin based on page width
         
-        print(f"now we started applyining bg-image to pdf. ")
+        print(f"applying image to pdf")
         self.image(f"{PDF_bg}", 0, 0, w, h)
-        print(f"bg image of pdf applied successfully...")
+        print(f"image added successfully.")
 
         print(f"...started adding font")
         #adding fonts:        
@@ -179,7 +180,7 @@ class PDF(FPDF):
         self.ln(2)
 
         sec8 = f"ON"
-        spacedSection8 = add_spacing(sec8, 2)
+        spacedSection8 = add_spacing(sec8, 1)
         self.section8 = f"{spacedSection8}"
         self.set_font("Poppins-Regular", size=13)
         self.multi_cell(277, 7, txt=self.section8, align='C')
@@ -189,8 +190,8 @@ class PDF(FPDF):
         self.multi_cell(277, 10, txt=self.section9, align='C')
         self.ln(21)  # Add some space after title
 
-        auth1 = f"{organizer1_designation}"
-        auth2 = f"{organizer2_designation}"
+        auth1 = f"        {organizer1_designation}"
+        auth2 = f"    {organizer2_designation}"
         spacedSection10a = add_spacing(auth1.upper(), 1)
         spacedSection10b = add_spacing(auth2.upper(), 1)
         self.section10 = f"{spacedSection10a}                   {spacedSection10b}"
@@ -200,15 +201,15 @@ class PDF(FPDF):
         self.set_left_margin(50)
         self.cell(50, 3, txt=f"{spacedSection10b}", align='C')
 
-        print(f"Certificate {i} generated successfully...")
-        print("Certificate1() ends...")
+        print(f"Certificate 1({i}) generated successfully...")
 
 
 # -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    def certificate2(self, name, sId, receiver_mail, course, sem, eventname, orgname, i, certType, certificateChoice, opertype, text_color, organizer1_designation, organizer2_designation, PDF_bg):
-        print(f"in certificate2 method...(of gen_pdf)")
-        date= dt.date.today()
+    def certificate2(self, name, sId, receiver_mail, course, sem, date, eventname, orgname, i, certType, certificateChoice, opertype, text_color, organizer1_designation, organizer2_designation, PDF_bg):
+        print(f"in certificate2 method.")
+        # date= dt.date.today()
+        date = date
         
         # Add pag:
         self.add_page(orientation="L")
@@ -216,8 +217,9 @@ class PDF(FPDF):
         h = self.h
         left_margin = 20  
         right_margin = self.w - left_margin  
-        
+        print("Now we adding the image...")
         self.image(f"{PDF_bg}", 0, 0, w, h)
+        print("image added successfully...")
 
         #adding fonts:        
         # poppins:
@@ -300,40 +302,39 @@ class PDF(FPDF):
         self.ln(1)
 
         sec8 = f"ON"
-        spacedSection8 = add_spacing(sec8, 2)
+        spacedSection8 = add_spacing(sec8, 1)
         self.section8 = f"{spacedSection8}"
         self.set_font("Poppins-Regular", size=13)
         self.multi_cell(277, 5, txt=self.section8, align='C')
         self.ln(1)
 
         self.section9 = f"{date}"
-        print(f"\n\n\tDate: {date}")
         self.set_font("Poppins-SemiBold", size=18, style="B")
         self.multi_cell(277, 6, txt=self.section9, align='C')
         self.ln(24)
 
-        auth1 = f"{organizer1_designation}"
-        auth2 = f"{organizer2_designation}"
+        auth1 = f"    {organizer1_designation}"
+        auth2 = f"    {organizer2_designation}"
         spacedSection10a = add_spacing(auth1.upper(), 0)
         spacedSection10b = add_spacing(auth2.upper(), 0)
         self.section10 = f"{spacedSection10a}                   {spacedSection10b}"
         self.set_font("Montserrat-Black", size=10, style="")
-        self.set_left_margin(50)
+        self.set_left_margin(60)
         self.cell(100, 3, txt=f"{spacedSection10a}", align='C')
         self.set_left_margin(160)
         self.cell(50, 3, txt=f"{spacedSection10b}", align='C')
 
-        print(f"Certificate{i}  generated successfully...")
-        print("Certificate2() ends...")        
+        print(f"Certificate2({i}) generated successfully...")       
 
 
 # --------------------------------------------------------------------------
 
-    def certificate5(self, name, sId, receiver_mail, course, sem, eventname, orgname, i, certType, certificateChoice, opertype, text_color, organizer1_designation, organizer2_designation, PDF_bg):
-        print(f"in certificate2 method...(of gen_pdf)")
-        date= dt.date.today()
+    def certificate5(self, name, sId, receiver_mail, course, sem, date, eventname, orgname, i, certType, certificateChoice, opertype, text_color, organizer1_designation, organizer2_designation, PDF_bg):
+        print(f"in certificate5 method...(of gen_pdf)")
+        # date= dt.date.today()
+        date = date
         
-        # Add pag:
+        # Add page:
         self.add_page(orientation="L")
         w = self.w
         h = self.h
@@ -440,20 +441,19 @@ class PDF(FPDF):
 
 
         sec8 = f" ON"
-        spacedSection8 = add_spacing(sec8, 2)
+        spacedSection8 = add_spacing(sec8, 1)
         self.section8 = f"{spacedSection8}"
         self.set_font("Poppins-Regular", size=13)
         self.multi_cell(277, 5, txt=self.section8, align='C')
         self.ln(1)
 
         self.section9 = f" {date}"
-        print(f"\n\n\tDate: {date}")
         self.set_font("Poppins-SemiBold", size=18, style="B")
         self.multi_cell(277, 6, txt=self.section9, align='C')
         self.ln(20)
 
-        auth1 = f"{organizer1_designation}"
-        auth2 = f"{organizer2_designation}"
+        auth1 = f"    {organizer1_designation}"
+        auth2 = f"    {organizer2_designation}"
         spacedSection10a = add_spacing(auth1.upper(), 1)
         spacedSection10b = add_spacing(auth2.upper(), 1)
         self.section10 = f"{spacedSection10a}   {spacedSection10b}"
@@ -463,15 +463,15 @@ class PDF(FPDF):
         self.set_left_margin(60)
         self.cell(60, 3, txt=f"{spacedSection10b}", align='C')
 
-        print(f"Certificate generated successfully...")
-        print("Certificate2() ends...")
+        print(f"Certificate 5({i}) generated successfully...")
 
 # --------------------------------------------------------------------------     
      
     #  design3   
-    def certificateRandom(self, name, sId, receiver_mail, course, sem, eventname, orgname, i, certificateChoice, opertype, text_color, PDF_bg):
+    def certificateRandom(self, name, sId, receiver_mail, course, sem, date, eventname, orgname, i, certificateChoice, opertype, text_color, PDF_bg):
         print(f"in {certificateChoice}")
-        date= dt.date.today()
+        # date= dt.date.today()
+        date = date
 
         # Add page with landscape orientation
         self.add_page(orientation="L")
@@ -560,7 +560,7 @@ class PDF(FPDF):
 # --------------------------------------------------------------------------     
 
 
-def getData(name, sId, receiverMail, course, sem, i, eventname, orgName, certType, certificateChoice, opertype, organizer1_designation, organizer2_designation, PDF_TemplatePath):
+def getData(name, sId, receiverMail, course, sem, date, i, eventname, orgName, certType, certificateChoice, opertype, organizer1_designation, organizer2_designation, PDF_TemplatePath):
     print(f"i={i}")
     
     # Create PDFFolder if it doesn't exist
@@ -583,18 +583,18 @@ def getData(name, sId, receiverMail, course, sem, i, eventname, orgName, certTyp
         if certificateChoice == "Choice2" or certificateChoice == "Choice3":
             fontcolor = 0
 
-        pdf.certificate1(name, sId, receiverMail, course, sem, eventname, orgName, i, certType, certificateChoice, opertype, fontcolor, organizer1_designation, organizer2_designation, PDF_TemplatePath)
+        pdf.certificate1(name, sId, receiverMail, course, sem, date, eventname, orgName, i, certType, certificateChoice, opertype, fontcolor, organizer1_designation, organizer2_designation, PDF_TemplatePath)
         print(f"success")
 
 
     if certificateChoice == "Choice4":
         fontcolor = 220
-        pdf.certificate2(name, sId, receiverMail, course, sem, eventname, orgName, i, certType, certificateChoice, opertype, fontcolor, organizer1_designation, organizer2_designation, PDF_TemplatePath)
+        pdf.certificate2(name, sId, receiverMail, course, sem, date, eventname, orgName, i, certType, certificateChoice, opertype, fontcolor, organizer1_designation, organizer2_designation, PDF_TemplatePath)
         print(f"course: {course}")
 
     if certificateChoice == "Choice5":
         fontcolor = 220
-        pdf.certificate5(name, sId, receiverMail, course, sem, eventname, orgName, i, certType, certificateChoice, opertype, fontcolor, organizer1_designation, organizer2_designation, PDF_TemplatePath)
+        pdf.certificate5(name, sId, receiverMail, course, sem, date, eventname, orgName, i, certType, certificateChoice, opertype, fontcolor, organizer1_designation, organizer2_designation, PDF_TemplatePath)
         print(f"course: {course}")
 
 

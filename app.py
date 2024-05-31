@@ -94,7 +94,7 @@ def ProcessData(eventname, orgname, certType, certificate_choice, oprchoice, csv
             i=0
             for CSV in csvData:
                     i+=1
-                    getData(CSV.name, CSV.sId, CSV.emailId, CSV.course, CSV.semester, i, eventname, orgname, certType, certificate_choice, oprchoice, organizer1_designation, organizer2_designation, finalTemplatePath)
+                    getData(CSV.name, CSV.sId, CSV.emailId, CSV.course, CSV.semester, CSV.date, i, eventname, orgname, certType, certificate_choice, oprchoice, organizer1_designation, organizer2_designation, finalTemplatePath)
 
 
         case "Preview":
@@ -123,7 +123,7 @@ def ProcessData(eventname, orgname, certType, certificate_choice, oprchoice, csv
             i=0
             for CSV in csvData:
                     i+=1
-                    getData(CSV.name, CSV.sId, CSV.emailId, CSV.course, CSV.semester, i, eventname, orgname, certType, certificate_choice, oprchoice, organizer1_designation, organizer2_designation, finalTemplatePath)
+                    getData(CSV.name, CSV.sId, CSV.emailId, CSV.course, CSV.semester, CSV.date, i, eventname, orgname, certType, certificate_choice, oprchoice, organizer1_designation, organizer2_designation, finalTemplatePath)
                     if i == 1:
                         break
 

@@ -122,7 +122,7 @@ def templatedesign4(backgroundImagePath, logoPath, logo2Path, linepath, ccPath, 
     logo1_new_width = int(a4_width/4)
     logo1_new_height = int(a4_height/8)
 
-  logo1_position = (90, 2150) 
+  logo1_position = (30, 2200) 
   logo_image1 = logo_image1.resize((logo1_new_width, logo1_new_height), Image.LANCZOS)
   print(f"Logo image resolution is: {logo_image1.size}")
   mask = logo_image1.getchannel('A')
@@ -141,7 +141,7 @@ def templatedesign4(backgroundImagePath, logoPath, logo2Path, linepath, ccPath, 
       logo2_new_width = int(a4_width/3)
       logo2_new_height = int(a4_height/5)
 
-    logo2_position = (2800, 10) 
+    logo2_position = (3100, 3) 
     logo_image2 = logo_image2.resize((logo2_new_width, logo2_new_height), Image.LANCZOS)
     mask2 = logo_image2.getchannel('A')
     background_image.paste(logo_image2, logo2_position, mask2)
