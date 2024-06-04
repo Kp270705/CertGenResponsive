@@ -2,6 +2,7 @@ from fpdf import FPDF
 import os
 import shutil
 import datetime as dt
+
 # fonts_truetype = f"/usr/share/fonts/truetype"
 fonts_truetype_Poppins = f"/usr/share/fonts/truetype/Poppins"
 fonts_truetype_Montserrat = f"/usr/share/fonts/truetype/Montserrat"
@@ -556,9 +557,7 @@ class PDF(FPDF):
         self.cell(180, 10, txt=self.section10, align="L")
     
 
-
 # --------------------------------------------------------------------------     
-
 
 def getData(name, sId, receiverMail, course, sem, date, i, eventname, orgName, certType, certificateChoice, opertype, organizer1_designation, organizer2_designation, PDF_TemplatePath):
     print(f"i={i}")
@@ -567,7 +566,6 @@ def getData(name, sId, receiverMail, course, sem, date, i, eventname, orgName, c
     if i == 1:
         if os.path.exists("./static/PDFFolder"):
             shutil.rmtree("./static/PDFFolder")
-            
         os.mkdir("./static/PDFFolder")
                 
     pdf = PDF()
@@ -575,17 +573,14 @@ def getData(name, sId, receiverMail, course, sem, date, i, eventname, orgName, c
     pdf.set_right_margin(10)
     pdf.set_top_margin(10)
     pdf.set_auto_page_break(auto=True, margin=15)
-    
 
     if certificateChoice == "Choice1" or certificateChoice == "Choice2" or certificateChoice == "Choice3" :
         if certificateChoice == "Choice1":
             fontcolor = 220
         if certificateChoice == "Choice2" or certificateChoice == "Choice3":
             fontcolor = 0
-
         pdf.certificate1(name, sId, receiverMail, course, sem, date, eventname, orgName, i, certType, certificateChoice, opertype, fontcolor, organizer1_designation, organizer2_designation, PDF_TemplatePath)
         print(f"success")
-
 
     if certificateChoice == "Choice4":
         fontcolor = 220
@@ -597,9 +592,7 @@ def getData(name, sId, receiverMail, course, sem, date, i, eventname, orgName, c
         pdf.certificate5(name, sId, receiverMail, course, sem, date, eventname, orgName, i, certType, certificateChoice, opertype, fontcolor, organizer1_designation, organizer2_designation, PDF_TemplatePath)
         print(f"course: {course}")
 
-
     pdf.output(f"./static/PDFFolder/{opertype}Certificate{i}.pdf")
     from sendingMails import send_mails
     send_mails(f"kunalpathak4774@gmail.com", receiverMail, f"./static/PDFFolder/{opertype}Certificate{i}.pdf", eventname, certType)
     
-
