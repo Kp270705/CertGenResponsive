@@ -83,7 +83,38 @@ class PDF(FPDF):
     
     def footer(self):
         # Add footer here if needed
-        pass     
+        pass 
+
+    def load_fonts(self):
+        #adding fonts:        
+        # poppins:
+        self.add_font('Poppins-ExtraBold', "B", f"{FONTS['Poppins']['poppinsExtraBold']}" , uni=True)
+        self.add_font('Poppins-Bold', "B", f"{FONTS['Poppins']['poppinsBold']}" , uni=True)
+        self.add_font('Poppins-Medium', "", f"{FONTS['Poppins']['poppinsMedium']}" , uni=True)
+        self.add_font('Poppins-Light', "", f"{FONTS['Poppins']['poppinsExtraLight']}" , uni=True)
+        self.add_font('Poppins-ExtraLight', "", f"{FONTS['Poppins']['poppinsLight']}" , uni=True)
+        self.add_font('Poppins-Regular', "", f"{FONTS['Poppins']['poppinsRegular']}" , uni=True)
+        self.add_font('Poppins-SemiBold', "B", f"{FONTS['Poppins']['poppinsSemiBold']}" , uni=True)
+
+        # montserrat:
+        self.add_font("Montserrat-Black", "", f"{FONTS['Montserrat']['MontserratBlack']}", uni=1 )
+        self.add_font("Montserrat-Bold", "B", f"{FONTS['Montserrat']['MontserratBold']}", uni=1 )
+        self.add_font("Montserrat-SemiBold", "B", f"{FONTS['Montserrat']['MontserratSemiBold']}", uni=1 )
+        self.add_font("Montserrat-ExtraBold", "B", f"{FONTS['Montserrat']["MontserratExtraBold"]}", uni=1 )
+        self.add_font("Montserrat-Regular", "", f"{FONTS['Montserrat']["MontserratRegular"]}", uni=1 )
+        self.add_font("Montserrat-Thin", "", f"{FONTS['Montserrat']["MontserratThin"]}", uni=1 )
+        self.add_font("Montserrat-Medium", "", f"{FONTS['Montserrat']["MontserratMedium"]}", uni=1 )
+
+
+        self.add_font("Merriweather-Black", "", f"{FONTS['Merriweath']['MerriBlack']}", uni=1 )
+        self.add_font("Merriweather-Bold", "B", f"{FONTS['Merriweath']['MerriBold']}", uni=1 )
+        self.add_font("Merriweather-Light", "B", f"{FONTS['Merriweath']['MerriLight']}", uni=1 )
+        self.add_font("Merriweather-Regular", "", f"{FONTS['Merriweath']['MerriRegular']}", uni=1 )
+
+        #random
+        self.add_font("eufm10", "", f"{FONTS['RandomFonts']['eufm10']}", uni=1 )
+        self.add_font("GreatVibes-Regular", "", f"{FONTS['RandomFonts']['GreatVibeReg']}", uni=1 )
+        self.add_font("PlayfairDisplay-VariableFont_wght", "", f"{FONTS['RandomFonts']['Playfair']}", uni=1 )    
         
 # certificate design1:-        
     def certificate1(self, name, sId, receiver_mail, course, sem, date, eventname, orgname, i, certType, certificateChoice, opertype, text_color, organizer1_designation, organizer2_designation, PDF_bg):
@@ -106,24 +137,25 @@ class PDF(FPDF):
         print(f"image added successfully.")
 
         print(f"...started adding font")
-        #adding fonts:        
-        # poppins:
-        self.add_font('Poppins-ExtraBold', "B", f"{FONTS['Poppins']['poppinsExtraBold']}" , uni=True)
-        self.add_font('Poppins-Bold', "B", f"{FONTS['Poppins']['poppinsBold']}" , uni=True)
-        self.add_font('Poppins-Medium', "", f"{FONTS['Poppins']['poppinsMedium']}" , uni=True)
-        self.add_font('Poppins-Light', "", f"{FONTS['Poppins']['poppinsExtraLight']}" , uni=True)
-        self.add_font('Poppins-ExtraLight', "", f"{FONTS['Poppins']['poppinsLight']}" , uni=True)
-        self.add_font('Poppins-Regular', "", f"{FONTS['Poppins']['poppinsRegular']}" , uni=True)
-        self.add_font('Poppins-SemiBold', "B", f"{FONTS['Poppins']['poppinsSemiBold']}" , uni=True)
+        self.load_fonts()
+        # #adding fonts:        
+        # # poppins:
+        # self.add_font('Poppins-ExtraBold', "B", f"{FONTS['Poppins']['poppinsExtraBold']}" , uni=True)
+        # self.add_font('Poppins-Bold', "B", f"{FONTS['Poppins']['poppinsBold']}" , uni=True)
+        # self.add_font('Poppins-Medium', "", f"{FONTS['Poppins']['poppinsMedium']}" , uni=True)
+        # self.add_font('Poppins-Light', "", f"{FONTS['Poppins']['poppinsExtraLight']}" , uni=True)
+        # self.add_font('Poppins-ExtraLight', "", f"{FONTS['Poppins']['poppinsLight']}" , uni=True)
+        # self.add_font('Poppins-Regular', "", f"{FONTS['Poppins']['poppinsRegular']}" , uni=True)
+        # self.add_font('Poppins-SemiBold', "B", f"{FONTS['Poppins']['poppinsSemiBold']}" , uni=True)
 
-        # montserrat:
-        self.add_font("Montserrat-Black", "", f"{FONTS['Montserrat']['MontserratBlack']}", uni=1 )
-        self.add_font("Montserrat-Bold", "B", f"{FONTS['Montserrat']['MontserratBold']}", uni=1 )
-        self.add_font("Montserrat-SemiBold", "B", f"{FONTS['Montserrat']['MontserratSemiBold']}", uni=1 )
-        self.add_font("Montserrat-ExtraBold", "B", f"{FONTS['Montserrat']["MontserratExtraBold"]}", uni=1 )
-        self.add_font("Montserrat-Regular", "", f"{FONTS['Montserrat']["MontserratRegular"]}", uni=1 )
-        self.add_font("Montserrat-Thin", "", f"{FONTS['Montserrat']["MontserratThin"]}", uni=1 )
-        self.add_font("Montserrat-Medium", "", f"{FONTS['Montserrat']["MontserratMedium"]}", uni=1 )
+        # # montserrat:
+        # self.add_font("Montserrat-Black", "", f"{FONTS['Montserrat']['MontserratBlack']}", uni=1 )
+        # self.add_font("Montserrat-Bold", "B", f"{FONTS['Montserrat']['MontserratBold']}", uni=1 )
+        # self.add_font("Montserrat-SemiBold", "B", f"{FONTS['Montserrat']['MontserratSemiBold']}", uni=1 )
+        # self.add_font("Montserrat-ExtraBold", "B", f"{FONTS['Montserrat']["MontserratExtraBold"]}", uni=1 )
+        # self.add_font("Montserrat-Regular", "", f"{FONTS['Montserrat']["MontserratRegular"]}", uni=1 )
+        # self.add_font("Montserrat-Thin", "", f"{FONTS['Montserrat']["MontserratThin"]}", uni=1 )
+        # self.add_font("Montserrat-Medium", "", f"{FONTS['Montserrat']["MontserratMedium"]}", uni=1 )
         print(f"all fonts added successfully...")
 
 
@@ -222,24 +254,26 @@ class PDF(FPDF):
         self.image(f"{PDF_bg}", 0, 0, w, h)
         print("image added successfully...")
 
-        #adding fonts:        
-        # poppins:
-        self.add_font('Poppins-ExtraBold', "B", f"{FONTS['Poppins']['poppinsExtraBold']}" , uni=True)
-        self.add_font('Poppins-Bold', "B", f"{FONTS['Poppins']['poppinsBold']}" , uni=True)
-        self.add_font('Poppins-Medium', "", f"{FONTS['Poppins']['poppinsMedium']}" , uni=True)
-        self.add_font('Poppins-Light', "", f"{FONTS['Poppins']['poppinsExtraLight']}" , uni=True)
-        self.add_font('Poppins-ExtraLight', "", f"{FONTS['Poppins']['poppinsLight']}" , uni=True)
-        self.add_font('Poppins-Regular', "", f"{FONTS['Poppins']['poppinsRegular']}" , uni=True)
-        self.add_font('Poppins-SemiBold', "B", f"{FONTS['Poppins']['poppinsSemiBold']}" , uni=True)
+        # #adding fonts:        
+        # # poppins:
+        # self.add_font('Poppins-ExtraBold', "B", f"{FONTS['Poppins']['poppinsExtraBold']}" , uni=True)
+        # self.add_font('Poppins-Bold', "B", f"{FONTS['Poppins']['poppinsBold']}" , uni=True)
+        # self.add_font('Poppins-Medium', "", f"{FONTS['Poppins']['poppinsMedium']}" , uni=True)
+        # self.add_font('Poppins-Light', "", f"{FONTS['Poppins']['poppinsExtraLight']}" , uni=True)
+        # self.add_font('Poppins-ExtraLight', "", f"{FONTS['Poppins']['poppinsLight']}" , uni=True)
+        # self.add_font('Poppins-Regular', "", f"{FONTS['Poppins']['poppinsRegular']}" , uni=True)
+        # self.add_font('Poppins-SemiBold', "B", f"{FONTS['Poppins']['poppinsSemiBold']}" , uni=True)
 
-        # montserrat:
-        self.add_font("Montserrat-Black", "", f"{FONTS['Montserrat']['MontserratBlack']}", uni=1 )
-        self.add_font("Montserrat-Bold", "B", f"{FONTS['Montserrat']['MontserratBold']}", uni=1 )
-        self.add_font("Montserrat-SemiBold", "B", f"{FONTS['Montserrat']['MontserratSemiBold']}", uni=1 )
-        self.add_font("Montserrat-ExtraBold", "B", f"{FONTS['Montserrat']["MontserratExtraBold"]}", uni=1 )
-        self.add_font("Montserrat-Regular", "", f"{FONTS['Montserrat']["MontserratRegular"]}", uni=1 )
-        self.add_font("Montserrat-Thin", "", f"{FONTS['Montserrat']["MontserratThin"]}", uni=1 )
-        self.add_font("Montserrat-Medium", "", f"{FONTS['Montserrat']["MontserratMedium"]}", uni=1 )
+        # # montserrat:
+        # self.add_font("Montserrat-Black", "", f"{FONTS['Montserrat']['MontserratBlack']}", uni=1 )
+        # self.add_font("Montserrat-Bold", "B", f"{FONTS['Montserrat']['MontserratBold']}", uni=1 )
+        # self.add_font("Montserrat-SemiBold", "B", f"{FONTS['Montserrat']['MontserratSemiBold']}", uni=1 )
+        # self.add_font("Montserrat-ExtraBold", "B", f"{FONTS['Montserrat']["MontserratExtraBold"]}", uni=1 )
+        # self.add_font("Montserrat-Regular", "", f"{FONTS['Montserrat']["MontserratRegular"]}", uni=1 )
+        # self.add_font("Montserrat-Thin", "", f"{FONTS['Montserrat']["MontserratThin"]}", uni=1 )
+        # self.add_font("Montserrat-Medium", "", f"{FONTS['Montserrat']["MontserratMedium"]}", uni=1 )
+
+        self.load_fonts()
 
         # Set font
         self.ln(40)
@@ -347,35 +381,37 @@ class PDF(FPDF):
         self.image(f"{PDF_bg}", 0, 0, w, h)
         print("Image added successfully...")
 
-        #adding fonts:        
-        # poppins:
-        self.add_font('Poppins-ExtraBold', "B", f"{FONTS['Poppins']['poppinsExtraBold']}" , uni=True)
-        self.add_font('Poppins-Bold', "B", f"{FONTS['Poppins']['poppinsBold']}" , uni=True)
-        self.add_font('Poppins-Medium', "", f"{FONTS['Poppins']['poppinsMedium']}" , uni=True)
-        self.add_font('Poppins-Light', "", f"{FONTS['Poppins']['poppinsExtraLight']}" , uni=True)
-        self.add_font('Poppins-ExtraLight', "", f"{FONTS['Poppins']['poppinsLight']}" , uni=True)
-        self.add_font('Poppins-Regular', "", f"{FONTS['Poppins']['poppinsRegular']}" , uni=True)
-        self.add_font('Poppins-SemiBold', "B", f"{FONTS['Poppins']['poppinsSemiBold']}" , uni=True)
+        self.load_fonts()
 
-        # montserrat:
-        self.add_font("Montserrat-Black", "", f"{FONTS['Montserrat']['MontserratBlack']}", uni=1 )
-        self.add_font("Montserrat-Bold", "B", f"{FONTS['Montserrat']['MontserratBold']}", uni=1 )
-        self.add_font("Montserrat-SemiBold", "B", f"{FONTS['Montserrat']['MontserratSemiBold']}", uni=1 )
-        self.add_font("Montserrat-ExtraBold", "B", f"{FONTS['Montserrat']["MontserratExtraBold"]}", uni=1 )
-        self.add_font("Montserrat-Regular", "", f"{FONTS['Montserrat']["MontserratRegular"]}", uni=1 )
-        self.add_font("Montserrat-Thin", "", f"{FONTS['Montserrat']["MontserratThin"]}", uni=1 )
-        self.add_font("Montserrat-Medium", "", f"{FONTS['Montserrat']["MontserratMedium"]}", uni=1 )
+        # #adding fonts:        
+        # # poppins:
+        # self.add_font('Poppins-ExtraBold', "B", f"{FONTS['Poppins']['poppinsExtraBold']}" , uni=True)
+        # self.add_font('Poppins-Bold', "B", f"{FONTS['Poppins']['poppinsBold']}" , uni=True)
+        # self.add_font('Poppins-Medium', "", f"{FONTS['Poppins']['poppinsMedium']}" , uni=True)
+        # self.add_font('Poppins-Light', "", f"{FONTS['Poppins']['poppinsExtraLight']}" , uni=True)
+        # self.add_font('Poppins-ExtraLight', "", f"{FONTS['Poppins']['poppinsLight']}" , uni=True)
+        # self.add_font('Poppins-Regular', "", f"{FONTS['Poppins']['poppinsRegular']}" , uni=True)
+        # self.add_font('Poppins-SemiBold', "B", f"{FONTS['Poppins']['poppinsSemiBold']}" , uni=True)
+
+        # # montserrat:
+        # self.add_font("Montserrat-Black", "", f"{FONTS['Montserrat']['MontserratBlack']}", uni=1 )
+        # self.add_font("Montserrat-Bold", "B", f"{FONTS['Montserrat']['MontserratBold']}", uni=1 )
+        # self.add_font("Montserrat-SemiBold", "B", f"{FONTS['Montserrat']['MontserratSemiBold']}", uni=1 )
+        # self.add_font("Montserrat-ExtraBold", "B", f"{FONTS['Montserrat']["MontserratExtraBold"]}", uni=1 )
+        # self.add_font("Montserrat-Regular", "", f"{FONTS['Montserrat']["MontserratRegular"]}", uni=1 )
+        # self.add_font("Montserrat-Thin", "", f"{FONTS['Montserrat']["MontserratThin"]}", uni=1 )
+        # self.add_font("Montserrat-Medium", "", f"{FONTS['Montserrat']["MontserratMedium"]}", uni=1 )
 
 
-        self.add_font("Merriweather-Black", "", f"{FONTS['Merriweath']['MerriBlack']}", uni=1 )
-        self.add_font("Merriweather-Bold", "B", f"{FONTS['Merriweath']['MerriBold']}", uni=1 )
-        self.add_font("Merriweather-Light", "B", f"{FONTS['Merriweath']['MerriLight']}", uni=1 )
-        self.add_font("Merriweather-Regular", "", f"{FONTS['Merriweath']['MerriRegular']}", uni=1 )
+        # self.add_font("Merriweather-Black", "", f"{FONTS['Merriweath']['MerriBlack']}", uni=1 )
+        # self.add_font("Merriweather-Bold", "B", f"{FONTS['Merriweath']['MerriBold']}", uni=1 )
+        # self.add_font("Merriweather-Light", "B", f"{FONTS['Merriweath']['MerriLight']}", uni=1 )
+        # self.add_font("Merriweather-Regular", "", f"{FONTS['Merriweath']['MerriRegular']}", uni=1 )
 
-        #random
-        self.add_font("eufm10", "", f"{FONTS['RandomFonts']['eufm10']}", uni=1 )
-        self.add_font("GreatVibes-Regular", "", f"{FONTS['RandomFonts']['GreatVibeReg']}", uni=1 )
-        self.add_font("PlayfairDisplay-VariableFont_wght", "", f"{FONTS['RandomFonts']['Playfair']}", uni=1 )
+        # #random
+        # self.add_font("eufm10", "", f"{FONTS['RandomFonts']['eufm10']}", uni=1 )
+        # self.add_font("GreatVibes-Regular", "", f"{FONTS['RandomFonts']['GreatVibeReg']}", uni=1 )
+        # self.add_font("PlayfairDisplay-VariableFont_wght", "", f"{FONTS['RandomFonts']['Playfair']}", uni=1 )
 
 
         # Set font
