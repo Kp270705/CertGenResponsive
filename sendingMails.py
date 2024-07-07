@@ -7,7 +7,7 @@ from email import encoders
 
 from passwords_info import mail2_pass
 
-def send_mails(email_sender, email_receiver, file_path, eventname, cert_type):
+async def send_mails(email_sender, email_receiver, file_path, eventname, cert_type):
 
     email_subject = f"Your {eventname} certificate."
     email_body = f"This is to inform you, we just sent your {eventname}'s certificate {cert_type}."
@@ -38,4 +38,4 @@ def send_mails(email_sender, email_receiver, file_path, eventname, cert_type):
     server.send_message(msg)
     server.quit()
 
-    print("Message sent successfully....")
+    print("\tMessage sent successfully....")

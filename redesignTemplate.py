@@ -5,13 +5,13 @@ from genZip import zip_folder
 
 
 def templatedesign1_2_3(backgroundImagePath, logoPath, logo2Path, linepath, ccPath, hodPath):
-  print(f"in starting of templatedesign()")
+  print(f"\nIn templatedesign_1_2_3()")
 
   background_image = Image.open(backgroundImagePath).convert('RGBA')
   a4_width = 3508
   a4_height = 2480
   background_image = background_image.resize((a4_width, a4_height), Image.LANCZOS)
-  print(f"Final Bg image resolution is: {background_image.size}")
+  # print(f"Final Bg image resolution is: {background_image.size}")
 
 
   logo_image1 = Image.open(logoPath).convert('RGBA')  # Ensure RGBA mode
@@ -26,7 +26,7 @@ def templatedesign1_2_3(backgroundImagePath, logoPath, logo2Path, linepath, ccPa
 
   logo1_position = (90, 120) 
   logo_image1 = logo_image1.resize((logo1_new_width, logo1_new_height), Image.LANCZOS)
-  print(f"Logo image resolution is: {logo_image1.size}")
+  # print(f"Logo image resolution is: {logo_image1.size}")
   mask = logo_image1.getchannel('A')
   background_image.paste(logo_image1, logo1_position, mask)
 
@@ -102,13 +102,13 @@ def templatedesign1_2_3(backgroundImagePath, logoPath, logo2Path, linepath, ccPa
 
 
 def templatedesign4(backgroundImagePath, logoPath, logo2Path, linepath, ccPath, hodPath):
-  print(f"in starting of templatedesign()")
+  print(f"\nIn templatedesign4()")
 
   background_image = Image.open(backgroundImagePath).convert('RGBA')
   a4_width = 3508
   a4_height = 2480
   background_image = background_image.resize((a4_width, a4_height), Image.LANCZOS)
-  print(f"Final Bg image resolution is: {background_image.size}")
+  # print(f"Final Bg image resolution is: {background_image.size}")
 
 
 
@@ -124,7 +124,7 @@ def templatedesign4(backgroundImagePath, logoPath, logo2Path, linepath, ccPath, 
 
   logo1_position = (30, 2200) 
   logo_image1 = logo_image1.resize((logo1_new_width, logo1_new_height), Image.LANCZOS)
-  print(f"Logo image resolution is: {logo_image1.size}")
+  # print(f"Logo image resolution is: {logo_image1.size}")
   mask = logo_image1.getchannel('A')
   background_image.paste(logo_image1, logo1_position, mask)
 
@@ -198,7 +198,7 @@ def templatedesign4(backgroundImagePath, logoPath, logo2Path, linepath, ccPath, 
 # ------------------------------------------------------------------------------------------------------------
 
 def templatedesign5(backgroundImagePath, logoPath, logo2Path, linepath, ccPath, hodPath):
-  print(f"in starting of templatedesign()")
+  print(f"\nIn templatedesign5()")
 
   background_image = Image.open(backgroundImagePath).convert('RGBA')
   a4_width = 3508
@@ -326,7 +326,7 @@ def templatedesign2b(backgroundImagePath, logoPath, ccPath, hodPath):
     background_image.save(output_image_path, quality=75)
     background_image.save(output_image_path, format='PNG')
 
-    print(f"Image created successfully! Saved as: {output_image_path}")
+    # print(f"Image created successfully! Saved as: {output_image_path}")
 
     return output_image_path
 

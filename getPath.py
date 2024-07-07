@@ -44,7 +44,6 @@ certificate_choice = {
 def get_Choice_data(choice):
     # if choice == certificate_choice[choice]:
     #     print(f"\n\n\n\n\n\nIn get path method...\n\t{certificate_choice[choice]}")
-    print("path found...")
     return certificate_choice[choice]
 
 # print(f"{certificate_choice['Choice1']["TemplatePath"]}")

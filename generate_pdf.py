@@ -2,6 +2,7 @@ from fpdf import FPDF
 import os
 import shutil
 import datetime as dt
+import asyncio
 
 # fonts_truetype = f"/usr/share/fonts/truetype"
 fonts_truetype_Poppins = f"/usr/share/fonts/truetype/Poppins"
@@ -595,8 +596,8 @@ class PDF(FPDF):
 
 # --------------------------------------------------------------------------     
 
-def getData(name, sId, receiverMail, course, sem, date, i, eventname, orgName, certType, certificateChoice, opertype, organizer1_designation, organizer2_designation, PDF_TemplatePath):
-    print(f"i={i}")
+async def getData(name, sId, receiverMail, course, sem, date, i, eventname, orgName, certType, certificateChoice, operType, organizer1_designation, organizer2_designation, PDF_TemplatePath):
+    print(f"\n\ni={i}")
     
     # Create PDFFolder if it doesn't exist
     if i == 1:
@@ -615,20 +616,23 @@ def getData(name, sId, receiverMail, course, sem, date, i, eventname, orgName, c
             fontcolor = 220
         if certificateChoice == "Choice2" or certificateChoice == "Choice3":
             fontcolor = 0
-        pdf.certificate1(name, sId, receiverMail, course, sem, date, eventname, orgName, i, certType, certificateChoice, opertype, fontcolor, organizer1_designation, organizer2_designation, PDF_TemplatePath)
+        pdf.certificate1(name, sId, receiverMail, course, sem, date, eventname, orgName, i, certType, certificateChoice, operType, fontcolor, organizer1_designation, organizer2_designation, PDF_TemplatePath)
         print(f"success")
 
     if certificateChoice == "Choice4":
         fontcolor = 220
-        pdf.certificate2(name, sId, receiverMail, course, sem, date, eventname, orgName, i, certType, certificateChoice, opertype, fontcolor, organizer1_designation, organizer2_designation, PDF_TemplatePath)
+        pdf.certificate2(name, sId, receiverMail, course, sem, date, eventname, orgName, i, certType, certificateChoice, operType, fontcolor, organizer1_designation, organizer2_designation, PDF_TemplatePath)
         print(f"course: {course}")
 
     if certificateChoice == "Choice5":
         fontcolor = 220
-        pdf.certificate5(name, sId, receiverMail, course, sem, date, eventname, orgName, i, certType, certificateChoice, opertype, fontcolor, organizer1_designation, organizer2_designation, PDF_TemplatePath)
+        pdf.certificate5(name, sId, receiverMail, course, sem, date, eventname, orgName, i, certType, certificateChoice, operType, fontcolor, organizer1_designation, organizer2_designation, PDF_TemplatePath)
         print(f"course: {course}")
 
-    pdf.output(f"./static/PDFFolder/{opertype}Certificate{i}.pdf")
-    from sendingMails import send_mails
-    send_mails(f"kunalpathak4774@gmail.com", receiverMail, f"./static/PDFFolder/{opertype}Certificate{i}.pdf", eventname, certType)
+    pdf.output(f"./static/PDFFolder/{operType}Certificate{i}.pdf")
+
+    if operType == "Generate":
+        from sendingMails import send_mails
+        print(f"\nIn sending  mails")
+        await send_mails(f"kunalpathak4774@gmail.com", receiverMail, f"./static/PDFFolder/{operType}Certificate{i}.pdf", eventname, certType)
     

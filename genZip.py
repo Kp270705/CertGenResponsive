@@ -2,7 +2,7 @@ import os
 import zipfile
 
 def zip_folder(folder_path, archive_name):
-  print(f"In zip folder making")
+  print(f"\nIn zip folder making")
   """
   Zips a folder and its contents into a ZIP archive.
 

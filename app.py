@@ -3,6 +3,8 @@ from werkzeug.utils import secure_filename
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
+import asyncio
+
 # from flask_uploads import UploadSet, IMAGES, configure_uploads
 import os, uuid, bcrypt
 from csvFunc import processFile
@@ -56,11 +58,12 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route("/ack")
-def ProcessData(eventname, orgname, certType, certificate_choice, oprchoice, csvPath, logo1Path, logo2Path, organizer1_designation, organizer1Path, organizer2_designation, organizer2Path):  # which get data from operated csv files:
+async def ProcessData(eventname, orgname, certType, certificate_choice, oprchoice, csvPath, logo1Path, logo2Path, organizer1_designation, organizer1Path, organizer2_designation, organizer2Path):  # which get data from operated csv files:
     
     # global csvData
     global csvData
     csvData = processFile(f"{csvPath}")
+    finalTemplatePath = f""
 
     from getPath import get_Choice_data
 
@@ -90,11 +93,12 @@ def ProcessData(eventname, orgname, certType, certificate_choice, oprchoice, csv
                 pathkey = get_Choice_data(certificate_choice)
                 finalTemplatePath = templatedesign5(pathkey["TemplatePath"], logo1Path, logo2Path, pathkey["linepath"], organizer1Path, organizer2Path)
 
+            # print(f"\nfinal template path: {finalTemplatePath} ")
 
             i=0
             for CSV in csvData:
                     i+=1
-                    getData(CSV.name, CSV.sId, CSV.emailId, CSV.course, CSV.semester, CSV.date, i, eventname, orgname, certType, certificate_choice, oprchoice, organizer1_designation, organizer2_designation, finalTemplatePath)
+                    await getData(CSV.name, CSV.sId, CSV.emailId, CSV.course, CSV.semester, CSV.date, i, eventname, orgname, certType, certificate_choice, oprchoice, organizer1_designation, organizer2_designation, finalTemplatePath)
 
 
         case "Preview":
@@ -123,14 +127,14 @@ def ProcessData(eventname, orgname, certType, certificate_choice, oprchoice, csv
             i=0
             for CSV in csvData:
                     i+=1
-                    getData(CSV.name, CSV.sId, CSV.emailId, CSV.course, CSV.semester, CSV.date, i, eventname, orgname, certType, certificate_choice, oprchoice, organizer1_designation, organizer2_designation, finalTemplatePath)
+                    await getData(CSV.name, CSV.sId, CSV.emailId, CSV.course, CSV.semester, CSV.date, i, eventname, orgname, certType, certificate_choice, oprchoice, organizer1_designation, organizer2_designation, finalTemplatePath)
                     if i == 1:
                         break
 
     zip_folder(f"./static/PDFFolder", f"./static/{oprchoice}Certificate.zip")
     # return render_template(f"Register.html")        
     print(f"\tLogoFileName is:{logo1Path}")
-    print(f"\n\tThere are {i} rows of data in given csv file.\n")
+    print(f"\nThere are {i} rows of data in given csv file.\n")
 
 
 
@@ -160,7 +164,7 @@ def upload_file():
             flash('No file part')
             return redirect(request.url)
         
-        print(f"{request.files}")
+        # print(f"{request.files}")
         CsvFile = request.files['file']
         Logo1File = request.files["logo"] # to get name of logo file
         Logo2File = request.files["logo2"]
@@ -181,12 +185,12 @@ def upload_file():
             
         if (Logo1File and allowed_file(Logo1File.filename)) or (Logo1File.filename) :
             logo1_filename = secure_filename(Logo1File.filename)
-            print(f"\n\n\tlogo1_filename:{logo1_filename}")   
+            # print(f"\nlogo1_filename:{logo1_filename}")   
             Logo1File.save(os.path.join(app.config['UPLOAD_FOLDER'], logo1_filename))
 
         if (Logo2File and allowed_file(Logo2File.filename)) or (Logo2File.filename) :
             logo2_filename = secure_filename(Logo2File.filename)
-            print(f"\n\n\tlogo2_filename:{logo2_filename}")   
+            # print(f"\nlogo2_filename:{logo2_filename}")   
             Logo2File.save(os.path.join(app.config['UPLOAD_FOLDER'], logo2_filename))
 
         if (organizer1File and allowed_file(organizer1File.filename)) or (organizer1File.filename) :
@@ -197,27 +201,27 @@ def upload_file():
             organizer2_filename = secure_filename(organizer2File.filename)
             organizer2File.save(os.path.join(app.config['UPLOAD_FOLDER'], organizer2_filename))
 
-        print(f"logo2 file: {Logo2File}")
+        # print(f"logo2 file: {Logo2File}")
 
         if oprchoice == "Generate":
             # if Logo2File == "<'' ('application/octet-stream')>":
             if Logo2File.filename == '':
-                print(f'\n\n\tIn if condition')
-                ProcessData(eventName, orgName, certType, certificate_choice_id, oprchoice, f"{userFiles}/{csv_filename}", f"{userFiles}/{logo1_filename}", None, organizer1, f"{userFiles}/{organizer1_filename}", organizer2, f"{userFiles}/{organizer2_filename}")
+                print(f'\n\n\tLogo2 file is not given...')
+                asyncio.run(ProcessData(eventName, orgName, certType, certificate_choice_id, oprchoice, f"{userFiles}/{csv_filename}", f"{userFiles}/{logo1_filename}", None, organizer1, f"{userFiles}/{organizer1_filename}", organizer2, f"{userFiles}/{organizer2_filename}"))
             else:
-                print(f'\n\n\tIn else condition...')
-                ProcessData(eventName, orgName, certType, certificate_choice_id, oprchoice, f"{userFiles}/{csv_filename}", f"{userFiles}/{logo1_filename}", f"{userFiles}/{logo2_filename}", organizer1, f"{userFiles}/{organizer1_filename}", organizer2, f"{userFiles}/{organizer2_filename}")
+                print(f'\n\n\tLogo2 file is given...')
+                asyncio.run(ProcessData(eventName, orgName, certType, certificate_choice_id, oprchoice, f"{userFiles}/{csv_filename}", f"{userFiles}/{logo1_filename}", f"{userFiles}/{logo2_filename}", organizer1, f"{userFiles}/{organizer1_filename}", organizer2, f"{userFiles}/{organizer2_filename}"))
 
             return render_template("ack.html")
         
         if oprchoice == "Preview":
             # if Logo2File == "<FileStorage: '' ('application/octet-stream')>":
             if Logo2File.filename == '':
-                print(f'\n\n\tIn if condition')
-                ProcessData(eventName, orgName, certType, certificate_choice_id, oprchoice, f"{userFiles}/{csv_filename}", f"{userFiles}/{logo1_filename}", None, organizer1, f"{userFiles}/{organizer1_filename}", organizer2, f"{userFiles}/{organizer2_filename}")
+                print(f'\tLogo2 file is not given...')
+                asyncio.run(ProcessData(eventName, orgName, certType, certificate_choice_id, oprchoice, f"{userFiles}/{csv_filename}", f"{userFiles}/{logo1_filename}", None, organizer1, f"{userFiles}/{organizer1_filename}", organizer2, f"{userFiles}/{organizer2_filename}"))
             else:
-                print(f'\n\n\tIn else condition...')
-                ProcessData(eventName, orgName, certType, certificate_choice_id, oprchoice, f"{userFiles}/{csv_filename}", f"{userFiles}/{logo1_filename}", f"{userFiles}/{logo2_filename}", organizer1, f"{userFiles}/{organizer1_filename}", organizer2, f"{userFiles}/{organizer2_filename}")
+                print(f'\tLogo2 file is given...')
+                asyncio.run(ProcessData(eventName, orgName, certType, certificate_choice_id, oprchoice, f"{userFiles}/{csv_filename}", f"{userFiles}/{logo1_filename}", f"{userFiles}/{logo2_filename}", organizer1, f"{userFiles}/{organizer1_filename}", organizer2, f"{userFiles}/{organizer2_filename}"))
 
             return render_template("preview.html")
         
@@ -306,4 +310,6 @@ def about():
 
 # driver code: 
 if __name__  ==  "__main__":
+    print("\n\t\t----- :Welcome to console of: -----")
+    print("\n\t\t ------- :AUTOMATIC CERTIFICATE GENERATOR : ------- \n\n")
     app.run(debug=1, host='0.0.0.0', port=5000) 
